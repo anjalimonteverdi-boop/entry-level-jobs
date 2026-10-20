@@ -60,7 +60,12 @@ class EntryLevelRules:
         self.override = phrase_regex(e.get("override_exclude") or [])
         self.max_years = e.get("max_years_required", 2)
         self.internships = e.get("internships", "paid_only")
-        self.include_vague = e.get("include_vague", True)
+        # True/"all", "non_tech", or False/"entry_titles" (see rules.yaml)
+        v = e.get("include_vague", "entry_titles")
+        self.vague_policy = {True: "all", False: "entry_titles"}.get(v, v)
+        tech_words = [w for c in cfg.get("categories", []) if c["name"] in ("Tech", "Data/Analytics")
+                      for w in c["words"]]
+        self.tech = phrase_regex(tech_words)
         self.bad = {k: phrase_regex(v) for k, v in (e.get("exclude_phrases") or {}).items()}
 
     def evaluate(self, p):
@@ -85,6 +90,8 @@ class EntryLevelRules:
         signals = []
         if self.include.search(title):
             signals.append("title")
+        elif _INTERN.search(title):
+            signals.append("internship")
 
         extra = p.get("extra") or {}
         if extra.get("pay_plan") in ("GS", "GL") and extra.get("low_grade") is not None:
@@ -105,11 +112,14 @@ class EntryLevelRules:
             signals.append("degree_only")
 
         flags = [] if experience_stated else ["Experience not stated"]
-        if signals:
-            return True, "+".join(signals), flags
-        if self.include_vague:
-            return True, "vague", flags
-        return False, "no_entry_level_signal", []
+        if not experience_stated and not {"title", "internship"} & set(signals):
+            # No entry-level title and no experience info: apply vague policy.
+            if self.vague_policy == "entry_titles":
+                return False, "vague_dropped", []
+            if self.vague_policy == "non_tech" and self.tech.search(title):
+                return False, "vague_tech_dropped", []
+            return True, "+".join(signals) or "vague", flags
+        return True, "+".join(signals), flags
 
 
 class Categorizer:

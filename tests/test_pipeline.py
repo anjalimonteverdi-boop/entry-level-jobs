@@ -49,6 +49,8 @@ class Rules(unittest.TestCase):
         keep, _, flags = self.rules.evaluate(dict(title="Office Assistant", description="Help run our office."))
         self.assertTrue(keep)
         self.assertEqual(flags, ["Experience not stated"])
+        # Neutral title, no experience info: dropped under the default policy.
+        self.assertFalse(self.keep("Software Engineer, Search Infrastructure", "Build search."))
 
 
 class Locations(unittest.TestCase):

@@ -64,9 +64,12 @@ entry_level:
   # show pay), or "include".
   internships: paid_only
 
-  # Keep roles whose title has no seniority signal and whose description
-  # doesn't say how much experience is needed, marked "Experience not stated".
-  include_vague: true
+  # Roles whose description doesn't say how much experience is needed are
+  # shown with an "Experience not stated" tag. This decides which of them stay:
+  #   entry_titles - only if the title has an entry-level word (above)
+  #   non_tech     - also neutral titles, except tech/data roles
+  #   all          - every neutral title too
+  include_vague: entry_titles
 
   # Phrases in the title or description that exclude a posting outright.
   exclude_phrases:
