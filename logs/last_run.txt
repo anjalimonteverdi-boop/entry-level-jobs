@@ -1,4 +1,4 @@
-Run 2026-10-20 11:56 PDT
+Run 2026-10-20 12:01 PDT
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
 Airbnb                       ok            182       28      0
@@ -28,4 +28,3 @@ OpenAI                       ok            806      578     42
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
 Listings on site: 111  (new today: 111, removed as closed/expired: 0, carried over from failed sources: 0)
-First run: every listing is marked new.
