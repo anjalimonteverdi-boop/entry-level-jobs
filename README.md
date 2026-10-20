@@ -1,6 +1,6 @@
-# Entry-Level Job Agent
+# Launchpad Listings
 
-Runs once a day, collects entry-level job postings for recent college grads
+Entry-level job agent. Runs once a day, collects entry-level job postings for recent college grads
 from public job-board APIs, and builds a simple static website you can publish.
 
 Starts with the **SF Bay Area + remote US**. Adding regions is a config change
