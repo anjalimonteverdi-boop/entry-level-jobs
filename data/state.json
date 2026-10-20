@@ -1,5 +1,5 @@
 {
- "last_run": "2026-10-20T19:02:05.136053+00:00",
+ "last_run": "2026-10-20T19:08:53.941879+00:00",
  "listings": {
   "asana|software engineer data loading infrastructure|san francisco": {
    "area": "San Francisco",
@@ -785,7 +785,7 @@
   },
   "ramp|technical sourcer engineering contract|san francisco": {
    "area": "San Francisco",
-   "category": "Tech",
+   "category": "Admin",
    "closes": null,
    "company": "Ramp",
    "first_seen": "2026-10-20",
@@ -822,7 +822,7 @@
    "remote": true,
    "salary": "$20K\u2013$100K/yr",
    "source": "Samsara",
-   "summary": "This role is open for candidates residing in the following US states: Texas,\u00a0Oklahoma,\u00a0Louisiana,\u00a0Arkansas,\u00a0Kansas,\u00a0Missouri,\u00a0Mississippi,\u00a0Alabama. The role requires travel approximately 25% of the time.",
+   "summary": "This role is open for candidates residing in the following US states: Texas, Oklahoma, Louisiana, Arkansas, Kansas, Missouri, Mississippi, Alabama. The role requires travel approximately 25% of the time.",
    "title": "Account Executive, Mid Market (TOLA)",
    "url": "https://www.samsara.com/company/careers/roles/8304132?gh_jid=8304132",
    "work_mode": "Remote"
@@ -1013,7 +1013,7 @@
   "Asana": 105,
   "Calm": 2,
   "Code for America": 8,
-  "Databricks": 900,
+  "Databricks": 901,
   "Dropbox": 19,
   "Figma": 143,
   "Glossier": 22,
