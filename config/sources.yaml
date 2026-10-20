@@ -1,0 +1,89 @@
+# Job sources for the daily run.
+#
+# Add or remove a source by adding/removing an entry below, or set
+# `enabled: false` to pause one without deleting it.
+#
+# Supported types:
+#   greenhouse  - company board on Greenhouse.  `board` is the slug in
+#                 boards.greenhouse.io/<board>
+#   lever       - company board on Lever.       `board` is the slug in
+#                 jobs.lever.co/<board>
+#   ashby       - company board on Ashby.       `board` is the slug in
+#                 jobs.ashbyhq.com/<board>
+#   usajobs     - federal jobs from the USAJobs Search API. Needs a free API
+#                 key (see README). Skipped automatically if no key is set.
+#   rss         - any RSS/Atom feed of job postings (e.g. a city or university
+#                 job board that publishes a feed). Needs `url` and `company`.
+#
+# Optional fields on any source:
+#   name      - display name (defaults to the board slug)
+#   sector    - "nonprofit" or "government". Listings from these sources get
+#               the Nonprofit / Government category tag.
+#   enabled   - true/false (default true)
+#
+# How to find a company's board slug: open their careers page and click a job.
+# If the URL looks like boards.greenhouse.io/acme/jobs/123, jobs.lever.co/acme/...,
+# or jobs.ashbyhq.com/acme/..., the slug is "acme".
+
+sources:
+  # ---- Greenhouse (all checked to exist on 2026-10-07) ----
+  - {type: greenhouse, board: airbnb,       name: Airbnb}
+  - {type: greenhouse, board: pinterest,    name: Pinterest}
+  - {type: greenhouse, board: lyft,         name: Lyft}
+  - {type: greenhouse, board: dropbox,      name: Dropbox}
+  - {type: greenhouse, board: stripe,       name: Stripe}
+  - {type: greenhouse, board: instacart,    name: Instacart}
+  - {type: greenhouse, board: figma,        name: Figma}
+  - {type: greenhouse, board: gusto,        name: Gusto}
+  - {type: greenhouse, board: reddit,       name: Reddit}
+  - {type: greenhouse, board: samsara,      name: Samsara}
+  - {type: greenhouse, board: databricks,   name: Databricks}
+  - {type: greenhouse, board: asana,        name: Asana}
+  - {type: greenhouse, board: twitch,       name: Twitch}
+  - {type: greenhouse, board: glossier,     name: Glossier}
+  - {type: greenhouse, board: calm,         name: Calm}
+  - {type: greenhouse, board: khanacademy,  name: Khan Academy,    sector: nonprofit}
+  - {type: greenhouse, board: wikimedia,    name: Wikimedia Foundation, sector: nonprofit}
+  - {type: greenhouse, board: mozilla,      name: Mozilla}
+  - {type: greenhouse, board: codeforamerica, name: Code for America, sector: nonprofit}
+
+  # ---- Lever ----
+  - {type: lever, board: palantir, name: Palantir}
+  - {type: lever, board: zoox,     name: Zoox}
+
+  # ---- Ashby ----
+  - {type: ashby, board: notion, name: Notion}
+  - {type: ashby, board: ramp,   name: Ramp}
+  - {type: ashby, board: openai, name: OpenAI}
+
+  # ---- Government ----
+  - type: usajobs
+    name: USAJobs (federal)
+    sector: government
+    # Who may apply: "public" = open to all US citizens,
+    # "graduates" = Recent Graduates (Pathways) program.
+    hiring_paths: [public, graduates]
+    # GS grade at or below this counts as entry-level (GS-5/7 are typical
+    # for new bachelor's grads; GS-9 often needs a master's or 1 year exp).
+    max_entry_gs_grade: 7
+
+  # ---- RSS example (disabled) ----
+  # Many city/county boards and university career sites publish RSS feeds.
+  # Only add feeds the site offers publicly and whose terms allow reuse.
+  # - type: rss
+  #   name: Example City Jobs
+  #   company: City of Example
+  #   url: https://example.gov/jobs/feed.rss
+  #   sector: government
+  #   enabled: false
+
+# Sites whose terms don't allow automated collection. We never fetch these;
+# the website shows them as "More places to search" links instead.
+# Use {region} where the region's search name should go.
+search_links:
+  - {name: LinkedIn,        url: "https://www.linkedin.com/jobs/search/?keywords=entry%20level&location={region}&f_E=1%2C2"}
+  - {name: Indeed,          url: "https://www.indeed.com/jobs?q=entry+level&l={region}"}
+  - {name: Handshake,       url: "https://joinhandshake.com/"}
+  - {name: Idealist (nonprofit), url: "https://www.idealist.org/en/jobs?q=entry%20level"}
+  - {name: CalCareers (State of CA), url: "https://www.calcareers.ca.gov/"}
+  - {name: USAJobs Recent Graduates, url: "https://www.usajobs.gov/search/results/?hp=graduates"}

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entry-Level Jobs</title>
+  <meta name="description" content="Daily list of entry-level job postings for recent college grads.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1 id="site-title">Entry-Level Jobs</h1>
+      <p id="tagline" class="tagline"></p>
+      <p class="updated">Last updated: <time id="updated">—</time></p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="notice" role="note">
+      Listings are collected automatically from public sources such as company career pages and
+      government job boards. Details can change or be wrong, so always check the posting on the
+      employer's own site before you apply.
+    </p>
+
+    <form id="filters" class="filters" onsubmit="return false">
+      <label class="search">
+        <span class="sr-only">Search by keyword or company</span>
+        <input id="q" type="search" placeholder="Search by keyword or company" autocomplete="off">
+      </label>
+      <div class="row">
+        <label>Category
+          <select id="category"><option value="">All categories</option></select>
+        </label>
+        <label>Location
+          <select id="area"><option value="">All locations</option></select>
+        </label>
+        <label>Work type
+          <select id="mode">
+            <option value="">Remote or on-site</option>
+            <option value="Remote">Remote</option>
+            <option value="onsite">On-site or hybrid</option>
+          </select>
+        </label>
+      </div>
+      <div class="row checks">
+        <label class="check"><input id="salary" type="checkbox"> Salary listed</label>
+        <label class="check"><input id="new" type="checkbox"> New today</label>
+        <button id="reset" type="button" class="link">Clear filters</button>
+      </div>
+    </form>
+
+    <p id="count" class="count" aria-live="polite"></p>
+    <ol id="jobs" class="jobs"></ol>
+    <p id="empty" class="empty" hidden>No jobs match these filters. Try clearing some.</p>
+
+    <section class="more">
+      <h2>More places to search</h2>
+      <p>These sites don't allow automated collection, so we link to their searches instead.</p>
+      <ul id="links"></ul>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Entry-level means titles like associate, coordinator, assistant, junior or new grad, or roles
+    asking for 0–2 years of experience. Postings marked “Experience not stated” didn't say.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

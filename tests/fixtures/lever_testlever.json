@@ -1,0 +1,51 @@
+[
+ {
+  "id": "l1",
+  "text": "Sales Development Representative",
+  "categories": {
+   "commitment": "Full-time",
+   "location": "San Jose, CA",
+   "team": "Sales",
+   "allLocations": [
+    "San Jose, CA"
+   ]
+  },
+  "createdAt": 1791230000000,
+  "descriptionPlain": "As an SDR you will book meetings for our account executives. This role is perfect for recent grads.",
+  "lists": [
+   {
+    "text": "Requirements",
+    "content": "<li>0-2 years of experience</li>"
+   }
+  ],
+  "additionalPlain": "",
+  "hostedUrl": "https://jobs.example.com/testlever/l1",
+  "workplaceType": "onsite",
+  "country": "US",
+  "salaryRange": {
+   "min": 60000,
+   "max": 75000,
+   "currency": "USD",
+   "interval": "per-year-salary"
+  }
+ },
+ {
+  "id": "l2",
+  "text": "Merchandising Assistant",
+  "categories": {
+   "commitment": "Full-time",
+   "location": "Palo Alto, CA",
+   "team": "Retail",
+   "allLocations": [
+    "Palo Alto, CA"
+   ]
+  },
+  "createdAt": 1791300000000,
+  "descriptionPlain": "You will support the buying team with assortment planning and vendor communication. Bachelor's degree required.",
+  "lists": [],
+  "additionalPlain": "",
+  "hostedUrl": "https://jobs.example.com/testlever/l2",
+  "workplaceType": "hybrid",
+  "country": "US"
+ }
+]

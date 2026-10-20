@@ -1,0 +1,256 @@
+{
+ "jobs": [
+  {
+   "id": 1,
+   "title": "Marketing Coordinator",
+   "location": {
+    "name": "San Francisco, CA"
+   },
+   "absolute_url": "https://example.com/acme/jobs/1",
+   "content": "&lt;h3&gt;About Acme&lt;/h3&gt;&lt;p&gt;Acme makes widgets for everyone.&lt;/p&gt;&lt;h3&gt;About the role&lt;/h3&gt;&lt;p&gt;You will plan and run social campaigns for our consumer brand. You&#x27;ll work closely with design and sales.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;1-2 years of experience in marketing&lt;/li&gt;&lt;li&gt;Bachelor&#x27;s degree&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The pay range for this role is $65,000 - $80,000 per year.&lt;/p&gt;",
+   "first_published": "2026-10-04T10:00:00-07:00",
+   "updated_at": "2026-10-04T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "Marketing"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 2,
+   "title": "Senior Software Engineer",
+   "location": {
+    "name": "San Francisco, CA"
+   },
+   "absolute_url": "https://example.com/acme/jobs/2",
+   "content": "&lt;p&gt;8+ years of experience building systems.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 3,
+   "title": "Software Engineer, New Grad",
+   "location": {
+    "name": "Remote - US"
+   },
+   "absolute_url": "https://example.com/acme/jobs/3",
+   "content": "&lt;p&gt;In this role you will build features for our web app.&lt;/p&gt;&lt;p&gt;0-1 years of experience; BS in CS or related field.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 4,
+   "title": "Data Analyst",
+   "location": {
+    "name": "New York, NY"
+   },
+   "absolute_url": "https://example.com/acme/jobs/4",
+   "content": "&lt;p&gt;1+ years of experience with SQL.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 5,
+   "title": "Account Executive",
+   "location": {
+    "name": "Oakland, CA"
+   },
+   "absolute_url": "https://example.com/acme/jobs/5",
+   "content": "&lt;p&gt;You will close deals. 5+ years of B2B sales experience required.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 6,
+   "title": "Brand Ambassador",
+   "location": {
+    "name": "San Francisco, CA"
+   },
+   "absolute_url": "https://example.com/acme/jobs/6",
+   "content": "&lt;p&gt;Be your own boss with unlimited earning potential!&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 7,
+   "title": "Operations Associate",
+   "location": {
+    "name": "Dublin, CA"
+   },
+   "absolute_url": "https://example.com/acme/jobs/7",
+   "content": "&lt;p&gt;We&#x27;re looking for an Operations Associate to keep our warehouse running smoothly. At least one year of experience in logistics.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 8,
+   "title": "Operations Associate",
+   "location": {
+    "name": "Dublin, Ireland"
+   },
+   "absolute_url": "https://example.com/acme/jobs/8",
+   "content": "&lt;p&gt;We&#x27;re looking for an Operations Associate in Dublin.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 9,
+   "title": "Design Assistant",
+   "location": {
+    "name": "Napa, CA"
+   },
+   "absolute_url": "https://example.com/acme/jobs/9",
+   "content": "&lt;p&gt;Join our creative team helping produce labels and packaging for our wines.&lt;/p&gt;",
+   "first_published": "2026-10-06T10:00:00-07:00",
+   "updated_at": "2026-10-06T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "Creative"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 10,
+   "title": "Customer Support Specialist",
+   "location": {
+    "name": "Remote - Canada"
+   },
+   "absolute_url": "https://example.com/acme/jobs/10",
+   "content": "&lt;p&gt;Help customers. 1 year of experience.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 11,
+   "title": "Marketing Coordinator",
+   "location": {
+    "name": "San Francisco"
+   },
+   "absolute_url": "https://example.com/acme/jobs/11",
+   "content": "&lt;p&gt;Duplicate of job 1 posted to a second office.&lt;/p&gt;",
+   "first_published": "2026-10-03T10:00:00-07:00",
+   "updated_at": "2026-10-03T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "Marketing"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 12,
+   "title": "Summer Intern",
+   "location": {
+    "name": "San Francisco, CA"
+   },
+   "absolute_url": "https://example.com/acme/jobs/12",
+   "content": "&lt;p&gt;This is an unpaid internship for students.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 13,
+   "title": "Junior Analyst",
+   "location": {
+    "name": "San Jose, CA"
+   },
+   "absolute_url": "https://example.com/acme/jobs/13",
+   "content": "&lt;p&gt;Analyze data. No experience required.&lt;/p&gt;",
+   "first_published": "2026-08-20T10:00:00-07:00",
+   "updated_at": "2026-08-20T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "Finance"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  },
+  {
+   "id": 14,
+   "title": "Product Designer",
+   "location": {
+    "name": "Palo Alto, CA; New York, NY"
+   },
+   "absolute_url": "https://example.com/acme/jobs/14",
+   "content": "&lt;p&gt;Design flows for our mobile app. 2 years of experience with Figma.&lt;/p&gt;",
+   "first_published": "2026-10-05T10:00:00-07:00",
+   "updated_at": "2026-10-05T10:00:00-07:00",
+   "departments": [
+    {
+     "name": "General"
+    }
+   ],
+   "offices": [],
+   "company_name": "Acme Test Co"
+  }
+ ]
+}

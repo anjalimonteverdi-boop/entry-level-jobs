@@ -1,0 +1,72 @@
+# Which places count as "in scope".
+#
+# To add a region later (e.g. Los Angeles, or all of Texas), add an entry
+# under `regions:` and list its key in `active_regions`. No code changes.
+#
+# Each region has areas (shown in the website's Location filter). Each area
+# lists city/place names to look for in a posting's location text.
+#
+# `state` is the two-letter state code. City names that also exist in other
+# states or countries (Dublin, Newark, Richmond, Concord...) go under
+# `ambiguous_places`; those only match when the location also mentions the
+# state (e.g. "Dublin, CA" or "Dublin, California").
+
+active_regions: [sf_bay_area]
+
+# Also include fully remote roles open to people anywhere in the US.
+include_remote_us: true
+
+regions:
+  sf_bay_area:
+    label: SF Bay Area
+    state: CA
+    state_name: California
+    # Name used in the "More places to search" links (LinkedIn, Indeed...)
+    search_name: San Francisco Bay Area
+    # Locations passed to USAJobs' LocationName search.
+    usajobs_locations:
+      - San Francisco, California
+      - Oakland, California
+      - San Jose, California
+      - Santa Rosa, California
+      - Napa, California
+    # Phrases that mean "somewhere in this region".
+    region_phrases: [bay area, sf bay, silicon valley, sfba]
+    region_default_area: Bay Area (general)
+    areas:
+      San Francisco:
+        places: [san francisco, "sf, ca", "s.f.", south san francisco]
+      East Bay:
+        places: [oakland, berkeley, emeryville, alameda county, san leandro,
+                 hayward, fremont, union city, walnut creek, pleasanton,
+                 livermore, san ramon, danville, orinda, lafayette, el cerrito,
+                 martinez, pittsburg, antioch, castro valley, east bay]
+        ambiguous_places: [alameda, richmond, concord, dublin, newark, albany]
+      Peninsula:
+        places: [daly city, san bruno, millbrae, burlingame, san mateo,
+                 foster city, belmont, san carlos, redwood city, menlo park,
+                 palo alto, east palo alto, half moon bay, pacifica,
+                 redwood shores, brisbane, peninsula]
+      South Bay / San Jose:
+        places: [san jose, sunnyvale, mountain view, santa clara, cupertino,
+                 milpitas, campbell, los gatos, los altos, saratoga,
+                 morgan hill, gilroy, south bay]
+      North Bay:
+        places: [napa, sonoma, santa rosa, petaluma, san rafael, novato,
+                 mill valley, sausalito, larkspur, corte madera, rohnert park,
+                 healdsburg, calistoga, st. helena, saint helena, vallejo,
+                 american canyon, benicia, marin, north bay]
+        ambiguous_places: [fairfield]
+
+  # Example of a future region (inactive until added to active_regions):
+  # los_angeles:
+  #   label: Los Angeles
+  #   state: CA
+  #   state_name: California
+  #   search_name: Los Angeles, CA
+  #   usajobs_locations: [Los Angeles, California]
+  #   region_phrases: [greater los angeles, la area]
+  #   region_default_area: Los Angeles
+  #   areas:
+  #     Los Angeles:
+  #       places: [los angeles, santa monica, culver city, pasadena, burbank]

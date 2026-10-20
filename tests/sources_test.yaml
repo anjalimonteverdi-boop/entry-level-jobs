@@ -1,0 +1,9 @@
+# Fake sources used only by the offline tests (tests/fixtures).
+sources:
+  - {type: greenhouse, board: acmetest, name: Acme Test Co}
+  - {type: lever, board: testlever, name: Lever Test Co}
+  - {type: ashby, board: testashby, name: Ashby Test Co}
+  - {type: usajobs, name: USAJobs (federal), sector: government, hiring_paths: [public, graduates], max_entry_gs_grade: 7}
+  - {type: greenhouse, board: missingboard, name: Broken Board Co}
+search_links:
+  - {name: LinkedIn, url: "https://www.linkedin.com/jobs/search/?keywords=entry%20level&location={region}"}

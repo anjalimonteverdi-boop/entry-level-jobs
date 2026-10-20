@@ -1,0 +1,48 @@
+# Runs the job agent every day and publishes site/ to GitHub Pages.
+# One-time setup: repo Settings > Pages > Source: "GitHub Actions".
+# Optional: add USAJOBS_API_KEY and USAJOBS_EMAIL under Settings > Secrets > Actions.
+
+name: Daily job update
+on:
+  schedule:
+    - cron: "0 14 * * *"   # 14:00 UTC = 7am Pacific (6am in winter)
+  workflow_dispatch: {}      # "Run workflow" button for manual runs
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: daily-job-update
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover tests
+      - run: python -m jobagent.run
+        env:
+          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
+          USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
+      - name: Save run history (new/expired tracking and source logs)
+        run: |
+          git config user.name "job-agent-bot"
+          git config user.email "job-agent-bot@users.noreply.github.com"
+          git add data logs
+          git commit -m "Daily job update $(date -u +%F)" || echo "No changes"
+          git push
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4

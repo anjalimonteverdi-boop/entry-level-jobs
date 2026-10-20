@@ -1,0 +1,92 @@
+{
+ "SearchResult": {
+  "SearchResultCount": 2,
+  "UserArea": {
+   "NumberOfPages": "1"
+  },
+  "SearchResultItems": [
+   {
+    "MatchedObjectId": "u1",
+    "MatchedObjectDescriptor": {
+     "PositionID": "SF-123",
+     "PositionTitle": "Program Support Assistant",
+     "PositionURI": "https://www.usajobs.gov/job/u1",
+     "PositionLocation": [
+      {
+       "LocationName": "San Francisco, California"
+      }
+     ],
+     "OrganizationName": "Environmental Protection Agency",
+     "DepartmentName": "Environmental Protection Agency",
+     "JobGrade": [
+      {
+       "Code": "GS"
+      }
+     ],
+     "PositionRemuneration": [
+      {
+       "MinimumRange": "52000",
+       "MaximumRange": "68000",
+       "RateIntervalCode": "PA"
+      }
+     ],
+     "PublicationStartDate": "2026-10-01T00:00:00.0000",
+     "ApplicationCloseDate": "2026-10-20T23:59:59.9970",
+     "QualificationSummary": "One year of specialized experience equivalent to GS-4, or a bachelor's degree.",
+     "UserArea": {
+      "Details": {
+       "JobSummary": "This position provides administrative support to the regional office.",
+       "LowGrade": "5",
+       "HighGrade": "7",
+       "HiringPath": [
+        "public"
+       ],
+       "MajorDuties": [
+        "Maintains files",
+        "Schedules meetings"
+       ]
+      }
+     }
+    }
+   },
+   {
+    "MatchedObjectId": "u2",
+    "MatchedObjectDescriptor": {
+     "PositionID": "SF-999",
+     "PositionTitle": "Supervisory Program Analyst",
+     "PositionURI": "https://www.usajobs.gov/job/u2",
+     "PositionLocation": [
+      {
+       "LocationName": "Oakland, California"
+      }
+     ],
+     "OrganizationName": "Department of Energy",
+     "JobGrade": [
+      {
+       "Code": "GS"
+      }
+     ],
+     "PositionRemuneration": [
+      {
+       "MinimumRange": "130000",
+       "MaximumRange": "170000",
+       "RateIntervalCode": "PA"
+      }
+     ],
+     "PublicationStartDate": "2026-10-01T00:00:00.0000",
+     "ApplicationCloseDate": "2026-10-20T23:59:59.9970",
+     "UserArea": {
+      "Details": {
+       "JobSummary": "Lead a team.",
+       "LowGrade": "14",
+       "HighGrade": "14",
+       "HiringPath": [
+        "public"
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

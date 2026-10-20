@@ -1,0 +1,25 @@
+# General settings for the daily run.
+
+site_title: Entry-Level Jobs for Recent Grads
+# Shown in the page header under the title.
+site_tagline: New entry-level postings in the SF Bay Area and remote US, updated daily.
+
+# Put an email or URL here so site owners can reach you if the bot causes
+# problems. It's sent in the User-Agent header of every request.
+contact: "set-your-email@example.com"
+
+# Drop listings posted more than this many days ago.
+max_age_days: 30
+
+# If a source fails, keep showing its listings from earlier runs for this
+# many days (so one bad day doesn't wipe a company off the site).
+keep_on_source_error_days: 3
+
+# Time zone for "new today" and the "Last updated" timestamp.
+timezone: America/Los_Angeles
+
+# Where the generated website goes.
+output_dir: site
+
+# Follow each site's robots.txt rules (recommended: leave true).
+respect_robots: true

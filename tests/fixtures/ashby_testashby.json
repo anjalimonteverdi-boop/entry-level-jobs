@@ -1,0 +1,43 @@
+{
+ "jobs": [
+  {
+   "id": "a1",
+   "title": "Communications Associate",
+   "location": "Remote",
+   "secondaryLocations": [],
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "isListed": true,
+   "address": {
+    "postalAddress": {
+     "addressCountry": "United States"
+    }
+   },
+   "department": "Comms",
+   "team": "",
+   "employmentType": "FullTime",
+   "publishedAt": "2026-10-07T08:00:00Z",
+   "jobUrl": "https://jobs.example.com/testashby/a1",
+   "descriptionPlain": "About the role\nYou'll write press releases and help run our social channels. Strong writing skills a must.\n2+ years of experience in PR or journalism.",
+   "compensation": {
+    "compensationTierSummary": "$70K \u2013 $85K \u2022 Offers Equity"
+   }
+  },
+  {
+   "id": "a2",
+   "title": "Executive Assistant",
+   "location": "San Francisco",
+   "secondaryLocations": [],
+   "isRemote": false,
+   "workplaceType": "OnSite",
+   "isListed": true,
+   "department": "G&A",
+   "team": "",
+   "employmentType": "FullTime",
+   "publishedAt": "2026-10-07T08:00:00Z",
+   "jobUrl": "https://jobs.example.com/testashby/a2",
+   "descriptionPlain": "You will manage calendars and travel for our CEO.",
+   "compensation": {}
+  }
+ ]
+}

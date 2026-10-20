@@ -1,0 +1,113 @@
+# Rules for deciding what counts as entry-level, and for category tags.
+# All matching is case-insensitive and on whole words/phrases.
+
+entry_level:
+  # Title words that suggest an entry-level role.
+  include_title:
+    - entry level
+    - entry-level
+    - associate
+    - coordinator
+    - assistant
+    - junior
+    - jr
+    - new grad
+    - new graduate
+    - recent graduate
+    - recent grad
+    - university grad
+    - early career
+    - early-career
+    - rotational
+    - rotation program
+    - apprentice
+    - apprenticeship
+    - graduate program
+    - level 1
+    - level i
+
+  # Title words that mean the role is too senior. These win over the
+  # include list, except for the phrases in `override_exclude`.
+  exclude_title:
+    - senior
+    - sr
+    - lead
+    - principal
+    - staff
+    - manager
+    - management
+    - director
+    - head of
+    - vp
+    - vice president
+    - chief
+    - architect
+    - supervisor
+    - iii
+    - iv
+    - v
+
+  # Titles that contain an excluded word but are classic new-grad roles.
+  override_exclude:
+    - associate product manager
+    - associate program manager
+    - new grad
+    - early career
+    - rotational
+    - staff accountant
+    - staff assistant
+
+  # Roles requiring this many years of experience or more are excluded.
+  max_years_required: 2
+
+  # Internships: "exclude" (drop all), "paid_only" (keep only ones that
+  # show pay), or "include".
+  internships: paid_only
+
+  # Keep roles whose title has no seniority signal and whose description
+  # doesn't say how much experience is needed, marked "Experience not stated".
+  include_vague: true
+
+  # Phrases in the title or description that exclude a posting outright.
+  exclude_phrases:
+    unpaid:
+      - unpaid
+      - this is a volunteer position
+      - volunteer opportunity
+    commission_only:
+      - commission only
+      - commission-only
+      - 100% commission
+      - straight commission
+      - commission based pay only
+    mlm:
+      - brand ambassador
+      - be your own boss
+      - unlimited earning potential
+      - independent distributor
+      - multi-level marketing
+      - network marketing
+
+# Category tags. A posting gets the first category (in this order) whose
+# words appear in its title. If the title doesn't match, its department or
+# team name is tried; otherwise it's Other. Sources marked
+# sector: nonprofit / government always get Nonprofit / Government.
+categories:
+  - name: Design
+    words: [design, designer, ux, ui, graphic, illustrator, creative, visual designer, art director, animator, motion]
+  - name: Data/Analytics
+    words: [data, analyst, analytics, insights, business intelligence, bi, statistician, research analyst, quantitative]
+  - name: Merchandising
+    words: [merchandising, merchandiser, merchant, buyer, assortment, allocation, planner, retail, store, inventory planning]
+  - name: Marketing
+    words: [marketing, growth, seo, sem, social media, brand, campaign, demand generation, lifecycle, community, influencer, partnerships marketing, product marketing, events]
+  - name: Communications
+    words: [communications, communication, public relations, pr, writer, editor, copywriter, content, journalist, media relations, editorial, comms, speechwriter]
+  - name: Sales
+    words: [sales, account executive, sales development, business development, sdr, bdr, account manager, inside sales, partnerships, revenue]
+  - name: Admin
+    words: [administrative, admin, executive assistant, office, receptionist, front desk, recruiting coordinator, recruiter, people, hr, human resources, talent, scheduler, clerk, payroll]
+  - name: Tech
+    words: [engineer, engineering, developer, software, it, technical, technician, qa, quality assurance, security, devops, sre, infrastructure, machine learning, ml, ai, help desk, helpdesk, systems, network, programmer, web]
+  - name: Operations
+    words: [operations, ops, logistics, supply chain, procurement, fulfillment, customer support, customer success, customer experience, support, program, project, coordinator, finance, accounting, accountant, legal, paralegal, compliance, facilities]
