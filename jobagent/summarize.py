@@ -54,6 +54,10 @@ def _pick(sentences):
 
 
 def summarize(p):
+    return " ".join(_summarize(p).split())
+
+
+def _summarize(p):
     desc = p.get("description") or ""
     lines = [ln.strip() for ln in desc.split("\n") if ln.strip()]
 

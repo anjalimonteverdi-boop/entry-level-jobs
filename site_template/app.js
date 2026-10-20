@@ -6,97 +6,128 @@
     return;
   }
 
+  var EMOJI = {
+    "Marketing": "📣", "Communications": "✍️", "Design": "🎨", "Merchandising": "🛍️",
+    "Sales": "🤝", "Operations": "⚙️", "Admin": "🗂️", "Data/Analytics": "📊",
+    "Tech": "💻", "Nonprofit": "💚", "Government": "🏛️", "Other": "✨"
+  };
+  var AREA_EMOJI = { "Remote (US)": "🏠" };
+
   $("site-title").textContent = D.title;
   document.title = D.title;
-  $("tagline").textContent = D.tagline || "";
+  if (D.tagline) $("tagline").textContent = D.tagline;
   $("updated").textContent = D.updated;
   $("updated").setAttribute("datetime", D.updated_iso);
+  $("stat-total").textContent = D.jobs.length;
+  $("stat-new").textContent = D.jobs.filter(function (j) { return j.is_new; }).length;
 
-  function fill(select, values, counts) {
-    values.forEach(function (v) {
-      if (!counts[v]) return;
-      var o = document.createElement("option");
-      o.value = v;
-      o.textContent = v + " (" + counts[v] + ")";
-      select.appendChild(o);
-    });
-  }
-  function countBy(key) {
-    var c = {};
-    D.jobs.forEach(function (j) { c[j[key]] = (c[j[key]] || 0) + 1; });
-    return c;
-  }
-  fill($("category"), D.categories, countBy("category"));
-  fill($("area"), D.areas, countBy("area"));
-
-  D.search_links.forEach(function (l) {
-    var li = document.createElement("li");
-    var a = document.createElement("a");
-    a.href = l.url; a.textContent = l.name; a.target = "_blank"; a.rel = "noopener nofollow";
-    li.appendChild(a);
-    $("links").appendChild(li);
-  });
-
-  // Search text is precomputed once per job.
-  D.jobs.forEach(function (j) {
-    j._text = [j.title, j.company, j.summary, j.location, j.category].join(" ").toLowerCase();
-  });
-
-  function fmtDate(iso) {
-    if (!iso) return "";
-    var d = new Date(iso + "T12:00:00");
-    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
-  }
   function el(tag, cls, text) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
     if (text != null) e.textContent = text;
     return e;
   }
+  function countBy(key) {
+    var c = {};
+    D.jobs.forEach(function (j) { c[j[key]] = (c[j[key]] || 0) + 1; });
+    return c;
+  }
+
+  // Single-select chip rows (category, area). "All" is the empty value.
+  var state = { category: "", area: "" };
+  function chipRow(id, values, counts, emoji) {
+    var box = $(id);
+    var all = [""].concat(values.filter(function (v) { return counts[v]; }));
+    all.forEach(function (v) {
+      var b = el("button", "chip");
+      b.type = "button";
+      b.setAttribute("role", "radio");
+      b.dataset.value = v;
+      var label = v ? ((emoji[v] ? emoji[v] + " " : "") + v) : "All";
+      b.appendChild(document.createTextNode(label));
+      if (v) b.appendChild(el("span", "n", String(counts[v])));
+      b.addEventListener("click", function () {
+        state[id] = v;
+        syncChips(id);
+        render();
+      });
+      box.appendChild(b);
+    });
+  }
+  function syncChips(id) {
+    Array.prototype.forEach.call($(id).children, function (b) {
+      b.setAttribute("aria-checked", String(b.dataset.value === state[id]));
+    });
+  }
+  chipRow("category", D.categories, countBy("category"), EMOJI);
+  chipRow("area", D.areas, countBy("area"), AREA_EMOJI);
+
+  D.search_links.forEach(function (l) {
+    var a = el("a", null, l.name + " ↗");
+    a.href = l.url; a.target = "_blank"; a.rel = "noopener nofollow";
+    $("links").appendChild(a);
+  });
+
+  D.jobs.forEach(function (j) {
+    j._text = [j.title, j.company, j.summary, j.location, j.category].join(" ").toLowerCase();
+  });
+
+  var today = new Date(D.updated_iso);
+  function ago(iso) {
+    if (!iso) return "";
+    var days = Math.round((today - new Date(iso + "T12:00:00")) / 864e5);
+    if (days <= 0) return "Posted today";
+    if (days === 1) return "Posted yesterday";
+    if (days < 7) return "Posted " + days + "d ago";
+    return "Posted " + Math.floor(days / 7) + "w ago";
+  }
 
   function card(j) {
     var li = el("li", "job");
+    var top = el("div", "job-top");
+    top.appendChild(el("div", "avatar", (j.company || "?").trim().charAt(0).toUpperCase()));
+    var head = el("div", "job-head");
     var h = el("h3");
     var a = el("a", null, j.title);
     a.href = j.url; a.target = "_blank"; a.rel = "noopener nofollow";
     h.appendChild(a);
-    li.appendChild(h);
-    li.appendChild(el("div", "company", j.company));
+    head.appendChild(h);
+    head.appendChild(el("div", "company", j.company));
+    top.appendChild(head);
+    if (j.is_new) top.appendChild(el("span", "badge-new", "✨ New"));
+    li.appendChild(top);
 
-    var meta = el("div", "meta");
-    meta.appendChild(el("span", null, "📍 " + (j.location || j.area)));
-    if (j.work_mode && j.work_mode !== "Remote") meta.appendChild(el("span", null, j.work_mode));
-    if (j.salary) meta.appendChild(el("span", null, "💵 " + j.salary));
-    if (j.posted) meta.appendChild(el("span", null, "Posted " + fmtDate(j.posted)));
-    if (j.closes) meta.appendChild(el("span", null, "Closes " + fmtDate(j.closes)));
-    li.appendChild(meta);
+    var facts = el("ul", "facts");
+    facts.appendChild(el("li", "fact", "📍 " + (j.location || j.area)));
+    if (j.work_mode && j.work_mode !== "Remote") facts.appendChild(el("li", "fact", j.work_mode));
+    if (j.salary) facts.appendChild(el("li", "fact pay", "💸 " + j.salary));
+    li.appendChild(facts);
 
-    li.appendChild(el("p", "summary", j.summary));
+    li.appendChild(el("p", "summary", (j.summary || "").replace(/\s+/g, " ")));
 
-    var tags = el("div", "tags");
-    if (j.is_new) tags.appendChild(el("span", "tag new", "New today"));
-    tags.appendChild(el("span", "tag", j.category));
-    (j.flags || []).forEach(function (f) { tags.appendChild(el("span", "tag flag", f)); });
-    var apply = el("a", "apply", "Apply");
+    var foot = el("div", "job-foot");
+    foot.appendChild(el("span", "tag", (EMOJI[j.category] || "") + " " + j.category));
+    (j.flags || []).forEach(function (f) { foot.appendChild(el("span", "tag flag", f)); });
+    var when = j.closes ? "Closes " + new Date(j.closes + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }) : ago(j.posted);
+    if (when) foot.appendChild(el("span", "when", when));
+    var apply = el("a", "apply", "Apply ↗");
     apply.href = j.url; apply.target = "_blank"; apply.rel = "noopener nofollow";
     apply.setAttribute("aria-label", "Apply: " + j.title + " at " + j.company);
-    tags.appendChild(apply);
-    li.appendChild(tags);
+    foot.appendChild(apply);
+    li.appendChild(foot);
     return li;
   }
 
-  var inputs = ["q", "category", "area", "mode", "salary", "new"];
+  var boxes = ["new", "remote", "salary"];
   function render() {
     var q = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    var cat = $("category").value, area = $("area").value, mode = $("mode").value;
-    var sal = $("salary").checked, onlyNew = $("new").checked;
+    var f = { new: $("new").checked, remote: $("remote").checked, salary: $("salary").checked };
     var list = D.jobs.filter(function (j) {
-      if (cat && j.category !== cat) return false;
-      if (area && j.area !== area) return false;
-      if (mode === "Remote" && !j.remote) return false;
-      if (mode === "onsite" && j.remote) return false;
-      if (sal && !j.salary) return false;
-      if (onlyNew && !j.is_new) return false;
+      if (state.category && j.category !== state.category) return false;
+      if (state.area && j.area !== state.area) return false;
+      if (f.remote && !j.remote) return false;
+      if (f.salary && !j.salary) return false;
+      if (f.new && !j.is_new) return false;
       for (var i = 0; i < q.length; i++) if (j._text.indexOf(q[i]) === -1) return false;
       return true;
     });
@@ -105,32 +136,41 @@
     var frag = document.createDocumentFragment();
     list.forEach(function (j) { frag.appendChild(card(j)); });
     ol.appendChild(frag);
-    var newCount = D.jobs.filter(function (j) { return j.is_new; }).length;
-    $("count").textContent = list.length + " of " + D.jobs.length + " jobs · " + newCount + " new today";
+
+    var filtered = q.length || state.category || state.area || f.new || f.remote || f.salary;
+    $("count").textContent = filtered
+      ? list.length + " of " + D.jobs.length + " jobs"
+      : "All " + D.jobs.length + " jobs · newest first";
+    $("reset").hidden = !filtered;
     $("empty").hidden = list.length > 0;
 
-    // Keep filters in the URL so a filtered view can be bookmarked or shared.
+    // Keep filters in the URL so a view can be bookmarked or shared.
     var p = new URLSearchParams();
-    inputs.forEach(function (id) {
-      var e = $(id);
-      var v = e.type === "checkbox" ? (e.checked ? "1" : "") : e.value;
-      if (v) p.set(id, v);
-    });
+    if ($("q").value.trim()) p.set("q", $("q").value.trim());
+    if (state.category) p.set("category", state.category);
+    if (state.area) p.set("area", state.area);
+    boxes.forEach(function (id) { if (f[id]) p.set(id, "1"); });
     var qs = p.toString();
     history.replaceState(null, "", qs ? "?" + qs : location.pathname);
   }
 
-  var params = new URLSearchParams(location.search);
-  inputs.forEach(function (id) {
-    var e = $(id);
-    if (params.has(id)) {
-      if (e.type === "checkbox") e.checked = params.get(id) === "1"; else e.value = params.get(id);
-    }
-    e.addEventListener(e.type === "search" ? "input" : "change", render);
-  });
-  $("reset").addEventListener("click", function () {
-    $("filters").reset();
+  function reset() {
+    $("q").value = "";
+    state.category = state.area = "";
+    boxes.forEach(function (id) { $(id).checked = false; });
+    syncChips("category"); syncChips("area");
     render();
+  }
+
+  var params = new URLSearchParams(location.search);
+  if (params.get("q")) $("q").value = params.get("q");
+  ["category", "area"].forEach(function (id) { state[id] = params.get(id) || ""; syncChips(id); });
+  boxes.forEach(function (id) {
+    $(id).checked = params.get(id) === "1";
+    $(id).addEventListener("change", render);
   });
+  $("q").addEventListener("input", render);
+  $("reset").addEventListener("click", reset);
+  $("reset2").addEventListener("click", reset);
   render();
 })();

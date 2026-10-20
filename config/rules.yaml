@@ -109,7 +109,7 @@ categories:
   - name: Sales
     words: [sales, account executive, sales development, business development, sdr, bdr, account manager, inside sales, partnerships, revenue]
   - name: Admin
-    words: [administrative, admin, executive assistant, office, receptionist, front desk, recruiting coordinator, recruiter, people, hr, human resources, talent, scheduler, clerk, payroll]
+    words: [administrative, admin, executive assistant, office, receptionist, front desk, recruiting coordinator, recruiter, sourcer, sourcing, people, hr, human resources, talent, scheduler, clerk, payroll]
   - name: Tech
     words: [engineer, engineering, developer, software, it, technical, technician, qa, quality assurance, security, devops, sre, infrastructure, machine learning, ml, ai, help desk, helpdesk, systems, network, programmer, web]
   - name: Operations

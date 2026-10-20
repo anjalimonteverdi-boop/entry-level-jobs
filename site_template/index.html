@@ -4,66 +4,76 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Launchpad Listings</title>
-  <meta name="description" content="Daily list of entry-level job postings for recent college grads.">
+  <meta name="description" content="Fresh entry-level jobs for recent grads, updated every morning.">
+  <meta name="theme-color" content="#2b1d14">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top">
+  <header class="hero">
     <div class="wrap">
-      <h1 id="site-title">Launchpad Listings</h1>
-      <p id="tagline" class="tagline"></p>
-      <p class="updated">Last updated: <time id="updated">—</time></p>
+      <div class="brand"><span class="logo" aria-hidden="true">🚀</span><h1 id="site-title">Launchpad Listings</h1></div>
+      <p id="tagline" class="tagline">Entry-level jobs for recent grads. No “5+ years required” nonsense.</p>
+      <div class="stats" aria-live="polite">
+        <span class="stat"><b id="stat-total">0</b> jobs</span>
+        <span class="stat new"><b id="stat-new">0</b> new today</span>
+        <span class="stat muted">Last updated <time id="updated">—</time></span>
+      </div>
+      <p class="hero-note">Pulled from public career pages and job boards. Always double-check details on the employer's site.</p>
     </div>
   </header>
 
   <main class="wrap">
-    <p class="notice" role="note">
-      Listings are collected automatically from public sources such as company career pages and
-      government job boards. Details can change or be wrong, so always check the posting on the
-      employer's own site before you apply.
-    </p>
-
     <form id="filters" class="filters" onsubmit="return false">
       <label class="search">
-        <span class="sr-only">Search by keyword or company</span>
-        <input id="q" type="search" placeholder="Search by keyword or company" autocomplete="off">
+        <span class="sr-only">Search jobs or companies</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <input id="q" type="search" placeholder="Search a role or company…" autocomplete="off" enterkeyhint="search">
       </label>
-      <div class="row">
-        <label>Category
-          <select id="category"><option value="">All categories</option></select>
-        </label>
-        <label>Location
-          <select id="area"><option value="">All locations</option></select>
-        </label>
-        <label>Work type
-          <select id="mode">
-            <option value="">Remote or on-site</option>
-            <option value="Remote">Remote</option>
-            <option value="onsite">On-site or hybrid</option>
-          </select>
-        </label>
+
+      <div class="quick" role="group" aria-label="Quick filters">
+        <label class="toggle"><input id="new" type="checkbox"><span>✨ New today</span></label>
+        <label class="toggle"><input id="remote" type="checkbox"><span>🏠 Remote</span></label>
+        <label class="toggle"><input id="salary" type="checkbox"><span>💸 Shows pay</span></label>
       </div>
-      <div class="row checks">
-        <label class="check"><input id="salary" type="checkbox"> Salary listed</label>
-        <label class="check"><input id="new" type="checkbox"> New today</label>
-        <button id="reset" type="button" class="link">Clear filters</button>
+
+      <div class="group">
+        <p class="group-label">What kind of work?</p>
+        <div id="category" class="chips" role="radiogroup" aria-label="Category"></div>
+      </div>
+      <div class="group">
+        <p class="group-label">Where?</p>
+        <div id="area" class="chips" role="radiogroup" aria-label="Location"></div>
       </div>
     </form>
 
-    <p id="count" class="count" aria-live="polite"></p>
+    <div class="results-bar">
+      <p id="count" class="count" aria-live="polite"></p>
+      <button id="reset" type="button" class="reset" hidden>Clear all ✕</button>
+    </div>
+
     <ol id="jobs" class="jobs"></ol>
-    <p id="empty" class="empty" hidden>No jobs match these filters. Try clearing some.</p>
+    <div id="empty" class="empty" hidden>
+      <p class="empty-emoji" aria-hidden="true">🫠</p>
+      <p><b>Nothing matches that combo.</b></p>
+      <button type="button" class="reset solid" id="reset2">Clear filters</button>
+    </div>
 
     <section class="more">
-      <h2>More places to search</h2>
-      <p>These sites don't allow automated collection, so we link to their searches instead.</p>
-      <ul id="links"></ul>
+      <h2>Still looking? 👀</h2>
+      <p>These sites don't let bots collect their jobs, so here are direct links instead.</p>
+      <div id="links" class="link-chips"></div>
     </section>
   </main>
 
   <footer class="wrap foot">
-    <p>Entry-level means titles like associate, coordinator, assistant, junior or new grad, or roles
-    asking for 0–2 years of experience. Postings marked “Experience not stated” didn't say.</p>
+    <p><b>Heads up:</b> jobs are pulled automatically from public company career pages and
+    government job boards. Details can change, so always double-check on the employer's site before applying.</p>
+    <p>“Entry-level” here means titles like associate, coordinator, assistant, junior or new grad, or roles
+    asking for 0–2 years of experience. A <span class="tag flag">Experience not stated</span> tag means the posting didn't say.</p>
   </footer>
 
   <script src="data.js"></script>
