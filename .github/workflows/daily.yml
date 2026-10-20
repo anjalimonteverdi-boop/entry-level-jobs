@@ -7,6 +7,9 @@ on:
   schedule:
     - cron: "0 14 * * *"   # 14:00 UTC = 7am Pacific (6am in winter)
   workflow_dispatch: {}      # "Run workflow" button for manual runs
+  push:                      # also rebuild when the code or settings change
+    branches: [main]
+    paths: [config/**, jobagent/**, site_template/**, .github/workflows/**]
 
 permissions:
   contents: write
