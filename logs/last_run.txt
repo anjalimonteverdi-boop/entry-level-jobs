@@ -1,30 +1,30 @@
-Run 2026-10-20 12:08 PDT
+Run 2026-10-21 07:28 PDT
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
-Airbnb                       ok            182       28      0
-Pinterest                    ok            157       97      5
-Lyft                         ok            177       57      4
-Dropbox                      ok             19       14      0
-Stripe                       ok            728      218      2
-Instacart                    ok            123      120      1
-Figma                        ok            143       91      8
-Gusto                        ok            101       77      1
-Reddit                       ok            156      128      0
-Samsara                      ok            264      203      2
-Databricks                   ok            901      432      2
-Asana                        ok            105       43      2
+Airbnb                       ok            192       33      0
+Pinterest                    ok            158       97      5
+Lyft                         ok            180       59      5
+Dropbox                      ok             21       16      0
+Stripe                       ok            731      221      4
+Instacart                    ok            125      122      1
+Figma                        ok            140       88      8
+Gusto                        ok            100       77      1
+Reddit                       ok            155      128      0
+Samsara                      ok            284      225     20
+Databricks                   ok            899      433      2
+Asana                        ok            105       42      2
 Twitch                       ok             58       48      2
 Glossier                     ok             22        0      0
 Calm                         ok              2        2      0
 Khan Academy                 ok              6        6      2
 Wikimedia Foundation         ok             14       14      1
-Mozilla                      ok            104       40      0
+Mozilla                      ok            103       40      0
 Code for America             ok              8        8      0
 Palantir                     ok            306       30      0
 Zoox                         ok            237      219      2
 Notion                       ok            135       68      5
 Ramp                         ok            169      105      2
-OpenAI                       ok            806      578      3
+OpenAI                       ok            808      580      3
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
-Listings on site: 44  (new today: 44, removed as closed/expired: 0, carried over from failed sources: 0)
+Listings on site: 50  (new today: 6, removed as closed/expired: 0, carried over from failed sources: 0)
