@@ -1,4 +1,4 @@
-Run 2026-10-24 07:13 PDT
+Run 2026-10-25 07:14 PDT
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
 Airbnb                       ok            191       31      0
@@ -9,10 +9,10 @@ Stripe                       ok            719      214      5
 Instacart                    ok            113      111      1
 Figma                        ok            138       86      3
 Gusto                        ok            101       77      0
-Reddit                       ok            159      130      0
-Samsara                      ok            285      223     21
-Databricks                   ok            896      434      3
-Asana                        ok            108       43      2
+Reddit                       ok            160      131      0
+Samsara                      ok            285      223     20
+Databricks                   ok            897      434      3
+Asana                        ok            109       44      2
 Twitch                       ok             58       47      4
 Glossier                     ok             20        1      0
 Calm                         ok              1        1      0
@@ -22,9 +22,9 @@ Mozilla                      ok            123       39      0
 Code for America             ok              8        8      0
 Palantir                     ok            309       31      0
 Zoox                         ok            236      219      3
-Notion                       ok            140       70      5
+Notion                       ok            140       70      4
 Ramp                         ok            167      105      2
-OpenAI                       ok            796      569      2
+OpenAI                       ok            794      567      1
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
-Listings on site: 49  (new today: 3, removed as closed/expired: 1, carried over from failed sources: 0)
+Listings on site: 46  (new today: 0, removed as closed/expired: 3, carried over from failed sources: 0)
