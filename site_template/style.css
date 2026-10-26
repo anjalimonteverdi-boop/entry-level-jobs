@@ -64,8 +64,8 @@ body {
   padding: 28px 0 26px;
   border-radius: 0 0 28px 28px;
 }
-.brand { display: flex; align-items: center; gap: 10px; }
-.logo { font-size: 2rem; line-height: 1; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.logo { width: clamp(44px, 9vw, 60px); height: auto; flex: none; filter: drop-shadow(0 4px 10px rgba(0,0,0,.35)); }
 h1 {
   font-family: var(--head);
   font-weight: 800;
