@@ -6,12 +6,9 @@
     return;
   }
 
-  var EMOJI = {
-    "Marketing": "📣", "Communications": "✍️", "Design": "🎨", "Merchandising": "🛍️",
-    "Sales": "🤝", "Operations": "⚙️", "Admin": "🗂️", "Data/Analytics": "📊",
-    "Tech": "💻", "Nonprofit": "💚", "Government": "🏛️", "Other": "✨"
-  };
-  var AREA_EMOJI = { "Remote (US)": "🏠" };
+  // Category/area labels are plain text for a minimal look.
+  var EMOJI = {};
+  var AREA_EMOJI = {};
 
   $("site-title").textContent = D.title;
   document.title = D.title;
@@ -94,19 +91,19 @@
     head.appendChild(h);
     head.appendChild(el("div", "company", j.company));
     top.appendChild(head);
-    if (j.is_new) top.appendChild(el("span", "badge-new", "✨ New"));
+    if (j.is_new) top.appendChild(el("span", "badge-new", "New"));
     li.appendChild(top);
 
     var facts = el("ul", "facts");
-    facts.appendChild(el("li", "fact", "📍 " + (j.location || j.area)));
+    facts.appendChild(el("li", "fact", (j.location || j.area)));
     if (j.work_mode && j.work_mode !== "Remote") facts.appendChild(el("li", "fact", j.work_mode));
-    if (j.salary) facts.appendChild(el("li", "fact pay", "💸 " + j.salary));
+    if (j.salary) facts.appendChild(el("li", "fact pay", j.salary));
     li.appendChild(facts);
 
     li.appendChild(el("p", "summary", (j.summary || "").replace(/\s+/g, " ")));
 
     var foot = el("div", "job-foot");
-    foot.appendChild(el("span", "tag", (EMOJI[j.category] || "") + " " + j.category));
+    foot.appendChild(el("span", "tag", j.category));
     (j.flags || []).forEach(function (f) { foot.appendChild(el("span", "tag flag", f)); });
     var when = j.closes ? "Closes " + new Date(j.closes + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }) : ago(j.posted);
     if (when) foot.appendChild(el("span", "when", when));

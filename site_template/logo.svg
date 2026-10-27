@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <defs><clipPath id="seal"><circle cx="100" cy="100" r="96"/></clipPath></defs>
-  <circle cx="100" cy="100" r="96" fill="#6b4423"/>
+  <circle cx="100" cy="100" r="96" fill="#1d4ed8"/>
   <g clip-path="url(#seal)">
-    <circle cx="62" cy="186" r="22" fill="#8a5a33"/>
-    <circle cx="138" cy="186" r="22" fill="#8a5a33"/>
-    <circle cx="100" cy="196" r="24" fill="#a0683c"/>
+    <circle cx="62" cy="186" r="22" fill="#3b6cf0"/>
+    <circle cx="138" cy="186" r="22" fill="#3b6cf0"/>
+    <circle cx="100" cy="196" r="24" fill="#5b86f5"/>
     <path d="M80 142 C74 162 88 176 100 196 C112 176 126 162 120 142 Z" fill="#f59e0b"/>
     <path d="M88 142 C84 158 94 168 100 182 C106 168 116 158 112 142 Z" fill="#fcd34d"/>
     <path d="M95 142 C94 152 97 160 100 168 C103 160 106 152 105 142 Z" fill="#fff7d6"/>
   </g>
-  <path d="M78 112 L52 142 L56 150 L82 136 Z" fill="#2563eb"/>
-  <path d="M122 112 L148 142 L144 150 L118 136 Z" fill="#2563eb"/>
-  <path d="M96 118 L100 150 L104 118 Z" fill="#1e4fc4"/>
-  <path d="M100 28 C128 46 136 86 124 136 H76 C64 86 72 46 100 28 Z" fill="#fbf3ea"/>
-  <path d="M100 28 C112 36 120 48 124 62 H76 C80 48 88 36 100 28 Z" fill="#2563eb"/>
-  <circle cx="100" cy="88" r="13" fill="#2563eb" stroke="#6b4423" stroke-width="5"/>
+  <path d="M78 112 L52 142 L56 150 L82 136 Z" fill="#f97316"/>
+  <path d="M122 112 L148 142 L144 150 L118 136 Z" fill="#f97316"/>
+  <path d="M96 118 L100 150 L104 118 Z" fill="#c2410c"/>
+  <path d="M100 28 C128 46 136 86 124 136 H76 C64 86 72 46 100 28 Z" fill="#ffffff"/>
+  <path d="M100 28 C112 36 120 48 124 62 H76 C80 48 88 36 100 28 Z" fill="#f97316"/>
+  <circle cx="100" cy="88" r="13" fill="#2563eb" stroke="#0f172a" stroke-width="5"/>
   <circle cx="96" cy="84" r="4" fill="#dce8ff"/>
-  <rect x="80" y="132" width="40" height="10" rx="4" fill="#6b4423"/>
+  <rect x="80" y="132" width="40" height="10" rx="4" fill="#0f172a"/>
 </svg>
