@@ -17,8 +17,8 @@
   --apply: #c2410c;       /* Apply button (orange) */
   --apply-ink: #ffffff;
   --radius: 12px;
-  --head: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --body: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --head: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -41,9 +41,9 @@ a { color: var(--blue); }
 .logo { width: clamp(40px, 8vw, 52px); height: auto; flex: none; }
 h1 {
   font-family: var(--head);
-  font-weight: 700;
+  font-weight: 800;
   font-size: clamp(1.9rem, 5.5vw, 2.6rem);
-  letter-spacing: -.03em;
+  letter-spacing: -.035em;
   line-height: 1;
   margin: 0;
 }
