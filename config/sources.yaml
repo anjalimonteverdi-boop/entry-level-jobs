@@ -47,6 +47,32 @@ sources:
   - {type: greenhouse, board: mozilla,      name: Mozilla}
   - {type: greenhouse, board: codeforamerica, name: Code for America, sector: nonprofit}
 
+  # Added 2026-10-30 to cover more fields (all checked to exist that day)
+  # Finance
+  - {type: greenhouse, board: robinhood,    name: Robinhood}
+  - {type: greenhouse, board: chime,        name: Chime}
+  - {type: greenhouse, board: brex,         name: Brex}
+  - {type: greenhouse, board: affirm,       name: Affirm}
+  - {type: greenhouse, board: sofi,         name: SoFi}
+  # Healthcare
+  - {type: greenhouse, board: onemedical,   name: One Medical}
+  # Education
+  - {type: greenhouse, board: coursera,     name: Coursera}
+  - {type: greenhouse, board: duolingo,     name: Duolingo}
+  - {type: greenhouse, board: masterclass,  name: MasterClass}
+  - {type: greenhouse, board: outschool,    name: Outschool}
+  - {type: greenhouse, board: guild,        name: Guild}
+  # Science / biotech
+  - {type: greenhouse, board: twistbioscience, name: Twist Bioscience}
+  # Media
+  - {type: greenhouse, board: voxmedia,     name: Vox Media}
+  # Retail, food and marketplaces
+  - {type: greenhouse, board: faire,        name: Faire}
+  - {type: greenhouse, board: sweetgreen,   name: Sweetgreen}
+  - {type: greenhouse, board: doordashusa,  name: DoorDash}
+  # Nonprofit / advocacy
+  - {type: greenhouse, board: aclu,         name: ACLU, sector: nonprofit}
+
   # ---- Lever ----
   - {type: lever, board: palantir, name: Palantir}
   - {type: lever, board: zoox,     name: Zoox}
@@ -55,6 +81,7 @@ sources:
   - {type: ashby, board: notion, name: Notion}
   - {type: ashby, board: ramp,   name: Ramp}
   - {type: ashby, board: openai, name: OpenAI}
+  - {type: ashby, board: hims-and-hers, name: Hims & Hers}
 
   # ---- Government ----
   - type: usajobs

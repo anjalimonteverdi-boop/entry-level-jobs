@@ -6,8 +6,9 @@ import urllib.parse
 from pathlib import Path
 
 TEMPLATE = Path(__file__).resolve().parent.parent / "site_template"
-CATEGORIES = ["Marketing", "Communications", "Design", "Merchandising", "Sales", "Operations",
-              "Admin", "Data/Analytics", "Tech", "Nonprofit", "Government", "Other"]
+CATEGORIES = ["Marketing", "Communications", "Design", "Sales", "Customer Support", "Operations",
+              "Admin", "People/HR", "Finance", "Data/Analytics", "Tech", "Healthcare", "Science/Research",
+              "Education", "Legal", "Merchandising", "Nonprofit", "Government", "Other"]
 
 
 def build_site(out_dir, listings, settings, sources_cfg, regions_cfg, now_local):

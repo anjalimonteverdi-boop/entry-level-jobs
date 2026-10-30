@@ -10,7 +10,14 @@
   var EMOJI = {};
   var AREA_EMOJI = {};
 
-  $("site-title").textContent = D.title;
+  // Last word of the title in orange, e.g. "Launchpad <Listings>".
+  var words = D.title.split(" ");
+  var last = words.pop();
+  $("site-title").textContent = words.length ? words.join(" ") + " " : "";
+  var acc = document.createElement("span");
+  acc.className = "title-accent";
+  acc.textContent = last;
+  $("site-title").appendChild(acc);
   document.title = D.title;
   if (D.tagline) $("tagline").textContent = D.tagline;
   $("updated").textContent = D.updated;
