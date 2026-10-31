@@ -1,18 +1,18 @@
-Run 2026-10-30 15:16 PDT
+Run 2026-10-31 07:24 PDT
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
-Airbnb                       ok            201       33      1
+Airbnb                       ok            202       33      1
 Pinterest                    ok            170      110      5
 Lyft                         ok            170       61      3
 Dropbox                      ok             24       14      0
 Stripe                       ok            746      220      6
-Instacart                    ok             97       95      3
+Instacart                    ok             96       94      3
 Figma                        ok            140       88      4
 Gusto                        ok             84       67      0
-Reddit                       ok            162      134      1
-Samsara                      ok            323      241     26
-Databricks                   ok            902      441      2
-Asana                        ok            110       38      2
+Reddit                       ok            163      135      1
+Samsara                      ok            326      244     27
+Databricks                   ok            901      440      2
+Asana                        ok            110       36      2
 Twitch                       ok             63       52      4
 Glossier                     ok             20        1      0
 Calm                         ok              1        1      0
@@ -20,13 +20,13 @@ Khan Academy                 ok              4        4      0
 Wikimedia Foundation         ok             15       15      1
 Mozilla                      ok            113       30      0
 Code for America             ok             10       10      0
-Robinhood                    ok            161      100      2
-Chime                        ok             73       70      2
+Robinhood                    ok            160       99      2
+Chime                        ok             75       72      4
 Brex                         ok            263      236      8
 Affirm                       ok            245      168      4
 SoFi                         ok             62       29      0
-One Medical                  ok            369      236    112
-Coursera                     ok             32        0      0
+One Medical                  ok            370      236    112
+Coursera                     ok             30        0      0
 Duolingo                     ok             57        2      0
 MasterClass                  ok              6        5      0
 Outschool                    error           0        0      0   HTTPError: HTTP Error 404: Not Found
@@ -35,17 +35,17 @@ Twist Bioscience             ok             45       30      3
 Vox Media                    ok             21        5      0
 Faire                        ok             67       57      1
 Sweetgreen                   ok             67        9      0
-DoorDash                     ok            438      279     17
+DoorDash                     ok            439      279     17
 ACLU                         ok             17        3      0
 Palantir                     ok            299       30      0
 Zoox                         ok            227      215      4
 Notion                       ok            148       71      3
-Ramp                         ok            170      104      2
-OpenAI                       ok            815      584      0
+Ramp                         ok            171      105      2
+OpenAI                       ok            813      582      0
 Hims & Hers                  ok            153       56      2
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
-Listings on site: 163  (new today: 117, removed as closed/expired: 0, carried over from failed sources: 0)
+Listings on site: 166  (new today: 3, removed as closed/expired: 0, carried over from failed sources: 0)
 
 CHECK THESE SOURCES:
   - Outschool: ERROR HTTPError: HTTP Error 404: Not Found
