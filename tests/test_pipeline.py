@@ -9,6 +9,7 @@ from pathlib import Path
 from jobagent import run
 from jobagent.rules import EntryLevelRules, years_required
 from jobagent.regions import LocationMatcher
+from jobagent.summarize import summarize
 import yaml
 
 HERE = Path(__file__).parent
@@ -31,6 +32,18 @@ class Rules(unittest.TestCase):
         self.assertEqual(years_required("0-2 years of relevant experience"), 0)
         self.assertEqual(years_required("two (2) years of experience"), 2)
         self.assertIsNone(years_required("Founded 10 years ago, we build things"))
+        # The real bar is the biggest number, not a side skill.
+        self.assertEqual(years_required("1+ years of SQL experience. 5+ years of sales experience."), 5)
+
+    def test_not_really_entry_level(self):
+        self.assertFalse(self.keep("Family Nurse Practitioner or Physician Assistant - New Grad"))
+        self.assertFalse(self.keep("Early Career - Family Medicine Physician"))
+        self.assertFalse(self.keep("Commercial Account Executive"))
+        self.assertFalse(self.keep("Product Operations (All Levels)"))
+        self.assertFalse(self.keep("Software Engineer II"))
+        self.assertFalse(self.keep("Associate, Partnerships", "1 year of experience", salary="x", salary_min=180000))
+        self.assertTrue(self.keep("Software Engineer, New Grad", "1 year of experience", salary="x", salary_min=145000))
+        self.assertTrue(self.keep("Phlebotomist / Administrative Assistant"))
 
     def test_titles(self):
         self.assertTrue(self.keep("Marketing Coordinator"))
@@ -51,6 +64,14 @@ class Rules(unittest.TestCase):
         self.assertEqual(flags, ["Experience not stated"])
         # Neutral title, no experience info: dropped under the default policy.
         self.assertFalse(self.keep("Software Engineer, Search Infrastructure", "Build search."))
+
+
+class Summaries(unittest.TestCase):
+    def test_skips_headings(self):
+        desc = ("The Community You Will Join:\nThe Difference You Will Make:\n"
+                "You will design and build services that process payments for millions of guests.")
+        self.assertEqual(summarize(dict(company="Airbnb", title="Engineer", description=desc)),
+                         "You will design and build services that process payments for millions of guests.")
 
 
 class Locations(unittest.TestCase):

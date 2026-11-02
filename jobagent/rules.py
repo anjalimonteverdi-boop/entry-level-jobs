@@ -27,6 +27,7 @@ _DEGREE = re.compile(
     r"(?:4|four)[- ]year (?:college )?degree|college degree|university degree",
     re.I,
 )
+_NEW_GRAD = re.compile(r"new grad|early career|university grad|\bintern", re.I)
 _INTERN = re.compile(r"\bintern(?:ship)?s?\b|\bco-?op\b", re.I)
 
 
@@ -36,7 +37,10 @@ def _num(s):
 
 
 def years_required(text):
-    """Smallest 'N years of experience' number mentioned, or None."""
+    """Largest 'N years of experience' number mentioned, or None.
+
+    Postings often list a small number for one skill and the real bar
+    elsewhere ("1+ year of SQL ... 5+ years in sales"), so the largest wins."""
     found = []
     for m in _YEARS.finditer(text):
         after = text[m.end(): m.end() + 80]
@@ -49,7 +53,7 @@ def years_required(text):
             found.append(_num(m.group("a")))
         except (KeyError, ValueError):
             continue
-    return min(found) if found else None
+    return max(found) if found else None
 
 
 class EntryLevelRules:
@@ -58,7 +62,9 @@ class EntryLevelRules:
         self.include = phrase_regex(e["include_title"])
         self.exclude = phrase_regex(e["exclude_title"])
         self.override = phrase_regex(e.get("override_exclude") or [])
+        self.always_exclude = phrase_regex(e.get("always_exclude_title") or [])
         self.max_years = e.get("max_years_required", 2)
+        self.max_salary = e.get("max_starting_salary")
         self.internships = e.get("internships", "paid_only")
         # True/"all", "non_tech", or False/"entry_titles" (see rules.yaml)
         v = e.get("include_vague", "entry_titles")
@@ -84,8 +90,17 @@ class EntryLevelRules:
             if self.internships == "paid_only" and not p.get("salary"):
                 return False, "internship_unpaid_or_pay_unstated", []
 
+        if self.always_exclude.search(title):
+            return False, "needs_grad_degree", []
         if self.exclude.search(title) and not self.override.search(title):
             return False, "senior_title", []
+
+        # A very high starting salary means a senior role, whatever the title
+        # says. Hourly pay is skipped (salary_min under 1000).
+        smin = p.get("salary_min") or 0
+        if self.max_salary and smin >= 1000 and smin > self.max_salary \
+                and not _NEW_GRAD.search(title):
+            return False, "salary_too_high", []
 
         signals = []
         if self.include.search(title):

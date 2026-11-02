@@ -23,6 +23,13 @@ _ABOUT_COMPANY = re.compile(r"^(?:we|we're|we are|our|at |founded|since|headquar
 _SENTENCE = re.compile(r"(?<=[.!?])\s+(?=[A-Z\"“(])")
 _BOILER = re.compile(r"equal opportunity|accommodation|e-verify|privacy|benefits|salary range|pay range|\$\d", re.I)
 
+# Headings written as a line of Title Case words, sometimes several glued
+# together ("The Community You Will Join: The Difference You Will Make").
+_HEADINGISH = re.compile(r"^(?:(?:[A-Z][\w’'&/-]*|of|the|you|to|and|for|a|in|on)\s*[:.]?\s*){2,14}$")
+# Opening lines that sell the company or perks instead of describing the job.
+_YOU_WILL = re.compile(r"\byou(?: will|(?:'|’)ll)\b", re.I)
+_PITCH = re.compile(r"^(?:why |we believe|join us|come (?:join|build)|our mission|imagine )", re.I)
+
 MAX_CHARS = 280
 
 
@@ -32,7 +39,12 @@ def _sentences(text):
         para = para.strip(" •*-–\t")
         if len(para) < 25:
             continue
-        out.extend(s.strip() for s in _SENTENCE.split(para) if len(s.strip()) > 20)
+        for s in _SENTENCE.split(para):
+            s = s.strip()
+            # Skip headings ("What you'll do:") and fragments too short to explain anything.
+            if len(s) <= 20 or s.endswith(":") or len(s.split()) < 7 or _HEADINGISH.match(s):
+                continue
+            out.append(s)
     return out
 
 
@@ -75,13 +87,15 @@ def _summarize(p):
 
     # 2. Sentences that describe the role ("you will", "this role"...).
     sents = _sentences(desc)
-    cued = [s for s in sents if _ROLE_CUES.search(s)]
+    cued = [s for s in sents if _ROLE_CUES.search(s) and not _PITCH.match(s)]
     if cued:
+        # Lead with what the person will actually do, then everything else.
+        cued.sort(key=lambda s: not _YOU_WILL.search(s))
         return _pick(cued)
 
     # 3. Opening sentences, skipping ones that are about the company.
     company = (p.get("company") or "").lower()
-    plain = [s for s in sents if not _ABOUT_COMPANY.match(s)
+    plain = [s for s in sents if not _ABOUT_COMPANY.match(s) and not _PITCH.match(s)
              and not (company and company in s.lower())]
     if plain:
         return _pick(plain)

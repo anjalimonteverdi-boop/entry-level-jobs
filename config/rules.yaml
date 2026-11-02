@@ -43,9 +43,37 @@ entry_level:
     - chief
     - architect
     - supervisor
+    - ii
     - iii
     - iv
     - v
+    - l3
+    - l4
+    - l5
+    - t3
+    - all levels
+    - per diem
+    - copy of
+    - head coach
+    # Sales roles that are mid-level even without "senior" in the title.
+    - account executive
+    - sales executive
+    - specialist seller
+    - sales engineer
+    - solutions engineer
+    - solutions consultant
+
+  # Roles that need a graduate degree or license, not a bachelor's. These
+  # are dropped even when the title says "new grad".
+  always_exclude_title:
+    - physician
+    - physician assistant
+    - physician associate
+    - nurse practitioner
+    - pharmacist
+    - counsel
+    - attorney
+    - phd
 
   # Titles that contain an excluded word but are classic new-grad roles.
   override_exclude:
@@ -59,6 +87,10 @@ entry_level:
 
   # Roles requiring this many years of experience or more are excluded.
   max_years_required: 2
+
+  # Jobs whose pay starts above this (per year) are dropped as too senior,
+  # unless the title says new grad, early career or intern.
+  max_starting_salary: 150000
 
   # Internships: "exclude" (drop all), "paid_only" (keep only ones that
   # show pay), or "include".
