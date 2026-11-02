@@ -155,7 +155,7 @@
   function toggleFav(id) {
     if (favs.has(id)) favs.delete(id); else favs.add(id);
     storeFavs();
-    render();
+    if (!$("feed").hidden) syncFeedHearts(); else render();
   }
 
   function loadScript(src) {
@@ -237,6 +237,113 @@
       .catch(function () { /* accounts unavailable; hearts still save on this device */ });
   }
 
+
+  // ---------- swipe feed ----------
+  // Full-screen, one job per screen, swipe up for the next (like a social
+  // feed). Uses whatever filters are set on the list.
+  var current = [];
+  function shareJob(j) {
+    var data = { title: j.title + " at " + j.company, url: j.url };
+    if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+    try { navigator.clipboard.writeText(j.url); alert("Link copied"); } catch (e) { window.open(j.url, "_blank"); }
+  }
+  function railButton(icon, label, onClick) {
+    var wrap = el("div");
+    var b = el("button", null, icon);
+    b.type = "button";
+    b.setAttribute("aria-label", label);
+    b.addEventListener("click", onClick);
+    wrap.appendChild(b);
+    wrap.appendChild(el("small", null, label));
+    return wrap;
+  }
+  function slide(j) {
+    var sl = el("section", "slide");
+    sl.dataset.id = j.id;
+    sl.appendChild(el("div", "slide-big", (j.company || "?").trim().charAt(0).toUpperCase()));
+    var chips = el("div", "slide-chips");
+    if (j.is_new) chips.appendChild(el("span", "slide-chip hot", "New today"));
+    chips.appendChild(el("span", "slide-chip", j.category));
+    if (j.work_mode) chips.appendChild(el("span", "slide-chip", j.work_mode));
+    var when = ago(j.posted);
+    if (when) chips.appendChild(el("span", "slide-chip", when));
+    sl.appendChild(chips);
+    sl.appendChild(el("div", "slide-company", j.company));
+    sl.appendChild(el("h2", null, j.title));
+    if (j.salary) sl.appendChild(el("p", "slide-pay", j.salary));
+    sl.appendChild(el("p", "slide-loc", j.location || j.area));
+    sl.appendChild(el("p", "slide-sum", (j.summary || "").replace(/\s+/g, " ")));
+    var a = el("a", "slide-apply", "Apply ↗");
+    a.href = j.url; a.target = "_blank"; a.rel = "noopener nofollow";
+    sl.appendChild(a);
+    var rail = el("div", "rail");
+    var save = railButton(favs.has(j.id) ? "♥" : "♡", "Save", function () { toggleFav(j.id); });
+    save.firstChild.classList.add("rail-save");
+    save.firstChild.setAttribute("aria-pressed", String(favs.has(j.id)));
+    rail.appendChild(save);
+    rail.appendChild(railButton("↗", "Share", function () { shareJob(j); }));
+    sl.appendChild(rail);
+    return sl;
+  }
+  function syncFeedHearts() {
+    Array.prototype.forEach.call(document.querySelectorAll(".slide"), function (sl) {
+      var b = sl.querySelector(".rail-save");
+      var on = favs.has(sl.dataset.id);
+      b.textContent = on ? "♥" : "♡";
+      b.setAttribute("aria-pressed", String(on));
+    });
+    var n = D.jobs.filter(function (j) { return favs.has(j.id); }).length;
+    $("saved-n").textContent = n ? String(n) : "";
+  }
+  function buildFeed() {
+    var track = $("feed-track");
+    track.textContent = "";
+    var frag = document.createDocumentFragment();
+    current.forEach(function (j, i) {
+      var sl = slide(j);
+      if (i === 0 && current.length > 1) sl.appendChild(el("div", "swipe-hint", "Swipe up for the next job"));
+      frag.appendChild(sl);
+    });
+    var end = el("section", "feed-end");
+    var box = el("div");
+    box.appendChild(el("p", null, current.length ? "You're all caught up." : "No jobs match these filters."));
+    var back = el("button", "feed-btn", "Back to the list");
+    back.type = "button";
+    back.addEventListener("click", closeFeed);
+    box.appendChild(back);
+    end.appendChild(box);
+    frag.appendChild(end);
+    track.appendChild(frag);
+    track.scrollTop = 0;
+    updatePos();
+  }
+  function updatePos() {
+    var track = $("feed-track");
+    var i = Math.round(track.scrollTop / Math.max(1, track.clientHeight));
+    $("feed-pos").textContent = current.length ? Math.min(i + 1, current.length) + " / " + current.length : "";
+  }
+  function openFeed() {
+    $("feed").hidden = false;
+    document.body.classList.add("feed-open");
+    buildFeed();
+    $("close-feed").focus();
+  }
+  function closeFeed() {
+    $("feed").hidden = true;
+    document.body.classList.remove("feed-open");
+    render();
+  }
+  $("feed-track").addEventListener("scroll", updatePos, { passive: true });
+  $("open-feed").addEventListener("click", openFeed);
+  $("close-feed").addEventListener("click", closeFeed);
+  document.addEventListener("keydown", function (e) {
+    if ($("feed").hidden) return;
+    var t = $("feed-track");
+    if (e.key === "Escape") closeFeed();
+    if (e.key === "ArrowDown" || e.key === "j") { t.scrollBy({ top: t.clientHeight, behavior: "smooth" }); e.preventDefault(); }
+    if (e.key === "ArrowUp" || e.key === "k") { t.scrollBy({ top: -t.clientHeight, behavior: "smooth" }); e.preventDefault(); }
+  });
+
   var boxes = ["new", "remote", "salary", "saved"];
   function render() {
     var q = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -252,6 +359,8 @@
       for (var i = 0; i < q.length; i++) if (j._text.indexOf(q[i]) === -1) return false;
       return true;
     });
+    current = list;
+    if (!$("feed").hidden) buildFeed();
     var ol = $("jobs");
     ol.textContent = "";
     var frag = document.createDocumentFragment();
@@ -301,4 +410,10 @@
   $("reset2").addEventListener("click", reset);
   render();
   setupAccounts();
+  // Opened from the home-screen icon: start in the feed.
+  var standalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  if (standalone || params.get("view") === "feed") openFeed();
+  if ("serviceWorker" in navigator && location.protocol === "https:") {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  }
 })();

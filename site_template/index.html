@@ -8,7 +8,12 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="color-scheme" content="light">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
-  <link rel="apple-touch-icon" href="logo.svg">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Launchpad">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -56,6 +61,11 @@
       </div>
     </form>
 
+    <button id="open-feed" type="button" class="feed-cta">
+      <span class="feed-cta-icon" aria-hidden="true">▶</span>
+      <span><b>Swipe mode</b><br><small>Scroll jobs one at a time, like a feed</small></span>
+    </button>
+
     <div class="results-bar">
       <p id="count" class="count" aria-live="polite"></p>
       <button id="reset" type="button" class="reset" hidden>Clear all ✕</button>
@@ -81,6 +91,14 @@
     <p>“Entry-level” here means titles like associate, coordinator, assistant, junior or new grad, or roles
     asking for 0–2 years of experience. A <span class="tag flag">Experience not stated</span> tag means the posting didn't say.</p>
   </footer>
+
+  <div id="feed" class="feed" hidden role="dialog" aria-label="Job feed">
+    <div class="feed-top">
+      <button id="close-feed" type="button" class="feed-btn">✕ List</button>
+      <span id="feed-pos" class="feed-pos"></span>
+    </div>
+    <div id="feed-track" class="feed-track"></div>
+  </div>
 
   <dialog id="signin" class="signin">
     <form method="dialog" id="signin-form">
