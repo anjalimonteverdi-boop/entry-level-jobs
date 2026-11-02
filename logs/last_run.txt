@@ -1,15 +1,15 @@
-Run 2026-11-02 12:49 PST
+Run 2026-11-02 13:07 PST
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
-Airbnb                       ok            210       42      0
+Airbnb                       ok            209       42      0
 Pinterest                    ok            168      133      0
 Lyft                         ok            172       91      6
 Dropbox                      ok             26       15      0
-Stripe                       ok            742      327      6
-Instacart                    ok             94       92      0
-Figma                        ok            140      100      1
+Stripe                       ok            743      328      6
+Instacart                    ok             92       90      0
+Figma                        ok            141      101      1
 Gusto                        ok             83       83      1
-Reddit                       ok            162      143      0
+Reddit                       ok            161      142      0
 Samsara                      ok            330      273     10
 Databricks                   ok            914      494      2
 Asana                        ok            108       49      2
@@ -21,7 +21,7 @@ Wikimedia Foundation         ok             14       14      1
 Mozilla                      ok            113       30      0
 Code for America             ok             10       10      0
 Robinhood                    ok            160      143      8
-Chime                        ok             75       75      2
+Chime                        ok             74       74      2
 Brex                         ok            263      246      2
 Affirm                       ok            236      164      5
 SoFi                         ok             63       51      1
