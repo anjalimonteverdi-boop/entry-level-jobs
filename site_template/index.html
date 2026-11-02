@@ -17,7 +17,10 @@
 <body>
   <header class="hero">
     <div class="wrap">
-      <div class="brand"><img class="logo" src="logo.svg" alt="" width="56" height="56"><h1 id="site-title">Launchpad Listings</h1></div>
+      <div class="topbar">
+        <div class="brand"><img class="logo" src="logo.svg" alt="" width="56" height="56"><h1 id="site-title">Launchpad Listings</h1></div>
+        <button id="account" type="button" class="account" hidden>Sign in</button>
+      </div>
       <p id="tagline" class="tagline">Entry-level jobs for recent grads. No “5+ years required” nonsense.</p>
       <div class="stats" aria-live="polite">
         <span class="stat"><b id="stat-total">0</b> jobs</span>
@@ -40,6 +43,7 @@
         <label class="toggle"><input id="new" type="checkbox"><span>New today</span></label>
         <label class="toggle"><input id="remote" type="checkbox"><span>Remote</span></label>
         <label class="toggle"><input id="salary" type="checkbox"><span>Shows pay</span></label>
+        <label class="toggle"><input id="saved" type="checkbox"><span>♥ Saved <b id="saved-n" class="saved-n"></b></span></label>
       </div>
 
       <div class="group">
@@ -77,6 +81,19 @@
     <p>“Entry-level” here means titles like associate, coordinator, assistant, junior or new grad, or roles
     asking for 0–2 years of experience. A <span class="tag flag">Experience not stated</span> tag means the posting didn't say.</p>
   </footer>
+
+  <dialog id="signin" class="signin">
+    <form method="dialog" id="signin-form">
+      <h2 id="signin-title">Save jobs to your account</h2>
+      <p id="signin-text">Enter your email and we'll send you a sign-in link. No password needed. Your saved jobs will show up on any device.</p>
+      <label class="sr-only" for="email">Email</label>
+      <input id="email" type="email" required placeholder="you@example.com" autocomplete="email">
+      <div class="signin-actions">
+        <button type="button" id="signin-cancel" class="reset">Cancel</button>
+        <button type="submit" id="signin-send" class="reset solid">Send link</button>
+      </div>
+    </form>
+  </dialog>
 
   <script src="data.js"></script>
   <script src="app.js"></script>

@@ -37,6 +37,22 @@ a { color: var(--blue); }
 
 /* ---------- header ---------- */
 .hero { padding: 40px 0 8px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.account {
+  flex: none;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--blue);
+  font: 600 .9rem var(--body);
+  padding: 8px 14px;
+  border-radius: 99px;
+  cursor: pointer;
+  max-width: 45vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.account:hover { border-color: var(--blue); }
 .brand { display: flex; align-items: center; gap: 12px; }
 .logo { width: clamp(40px, 8vw, 52px); height: auto; flex: none; }
 h1 {
@@ -213,6 +229,45 @@ h1 {
   border-radius: 99px;
   transition: filter .15s;
 }
+.fav {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.fav:hover { background: var(--orange-soft); color: var(--orange); }
+.fav[aria-pressed="true"] { color: var(--orange); }
+.saved-n { font-weight: 600; }
+.saved-n:empty { display: none; }
+.signin {
+  border: 0;
+  border-radius: 16px;
+  padding: 24px;
+  width: min(420px, calc(100vw - 32px));
+  box-shadow: 0 20px 60px rgba(15, 23, 42, .25);
+  color: var(--ink);
+}
+.signin::backdrop { background: rgba(15, 23, 42, .35); }
+.signin h2 { font: 700 1.3rem var(--head); margin: 0 0 6px; }
+.signin p { color: var(--muted); margin: 0 0 16px; font-size: .95rem; }
+.signin input {
+  width: 100%;
+  font: 400 1rem var(--body);
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+.signin input:focus { outline: 2px solid var(--blue); outline-offset: 1px; background: var(--bg); }
+.signin-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }
 .apply:hover { filter: brightness(1.08); }
 
 .empty { text-align: center; padding: 40px 0; color: var(--muted); }

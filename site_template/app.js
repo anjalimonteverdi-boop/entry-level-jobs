@@ -108,6 +108,12 @@
     head.appendChild(el("div", "company", j.company));
     top.appendChild(head);
     if (j.is_new) top.appendChild(el("span", "badge-new", "New"));
+    var fav = el("button", "fav", favs.has(j.id) ? "♥" : "♡");
+    fav.type = "button";
+    fav.setAttribute("aria-pressed", String(favs.has(j.id)));
+    fav.setAttribute("aria-label", "Save " + j.title + " at " + j.company);
+    fav.addEventListener("click", function () { toggleFav(j.id); });
+    top.appendChild(fav);
     li.appendChild(top);
 
     var facts = el("ul", "facts");
@@ -131,16 +137,118 @@
     return li;
   }
 
-  var boxes = ["new", "remote", "salary"];
+
+  // ---------- favorites ----------
+  // Always kept on this device. When someone signs in (email link, via
+  // Firebase), they're also saved to their account so they follow them to
+  // any device. Accounts switch on once settings.yaml has Firebase values.
+  var FAV_KEY = "launchpad-favs";
+  var favs = new Set();
+  try { JSON.parse(localStorage.getItem(FAV_KEY) || "[]").forEach(function (id) { favs.add(id); }); } catch (e) {}
+  var cloud = null; // { db, uid } when signed in
+
+  function storeFavs() {
+    var arr = Array.from(favs);
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); } catch (e) {}
+    if (cloud) cloud.db.collection("users").doc(cloud.uid).set({ favs: arr }, { merge: true });
+  }
+  function toggleFav(id) {
+    if (favs.has(id)) favs.delete(id); else favs.add(id);
+    storeFavs();
+    render();
+  }
+
+  function loadScript(src) {
+    return new Promise(function (ok, fail) {
+      var t = document.createElement("script");
+      t.src = src; t.onload = ok; t.onerror = fail;
+      document.head.appendChild(t);
+    });
+  }
+
+  function setupAccounts() {
+    if (!D.firebase || !D.firebase.apiKey) return;
+    var base = "https://www.gstatic.com/firebasejs/10.12.2/";
+    loadScript(base + "firebase-app-compat.js")
+      .then(function () { return loadScript(base + "firebase-auth-compat.js"); })
+      .then(function () { return loadScript(base + "firebase-firestore-compat.js"); })
+      .then(function () {
+        firebase.initializeApp(D.firebase);
+        var auth = firebase.auth();
+        var db = firebase.firestore();
+        var btn = $("account");
+        btn.hidden = false;
+        var EMAIL_KEY = "launchpad-signin-email";
+
+        // Coming back from the link in the email.
+        if (auth.isSignInWithEmailLink(location.href)) {
+          var email = null;
+          try { email = localStorage.getItem(EMAIL_KEY); } catch (e) {}
+          if (!email) email = window.prompt("Confirm your email to finish signing in");
+          if (email) {
+            auth.signInWithEmailLink(email, location.href).catch(function () {
+              alert("That sign-in link expired or was already used. Please try again.");
+            });
+          }
+          try { localStorage.removeItem(EMAIL_KEY); } catch (e) {}
+          history.replaceState(null, "", location.pathname);
+        }
+
+        auth.onAuthStateChanged(function (user) {
+          if (!user) {
+            cloud = null;
+            btn.textContent = "Sign in";
+            return;
+          }
+          btn.textContent = "Sign out";
+          btn.title = "Signed in as " + user.email;
+          cloud = { db: db, uid: user.uid };
+          // Merge what's on this device with what's in the account.
+          db.collection("users").doc(user.uid).get().then(function (doc) {
+            ((doc.exists && doc.data().favs) || []).forEach(function (id) { favs.add(id); });
+            storeFavs();
+            render();
+          });
+        });
+
+        btn.addEventListener("click", function () {
+          if (auth.currentUser) { auth.signOut(); return; }
+          $("signin-text").textContent = "Enter your email and we'll send you a sign-in link. No password needed. Your saved jobs will show up on any device.";
+          $("signin-send").hidden = false;
+          $("email").hidden = false;
+          $("signin").showModal();
+        });
+        $("signin-cancel").addEventListener("click", function () { $("signin").close(); });
+        $("signin-form").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var email = $("email").value.trim();
+          auth.sendSignInLinkToEmail(email, { url: location.origin + location.pathname, handleCodeInApp: true })
+            .then(function () {
+              try { localStorage.setItem(EMAIL_KEY, email); } catch (e) {}
+              $("signin-text").textContent = "Check your inbox for a link from Launchpad Listings. Open it on this device to finish signing in.";
+              $("signin-send").hidden = true;
+              $("email").hidden = true;
+            })
+            .catch(function () {
+              $("signin-text").textContent = "Couldn't send the link. Check the email address and try again.";
+            });
+        });
+      })
+      .catch(function () { /* accounts unavailable; hearts still save on this device */ });
+  }
+
+  var boxes = ["new", "remote", "salary", "saved"];
   function render() {
     var q = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    var f = { new: $("new").checked, remote: $("remote").checked, salary: $("salary").checked };
+    var f = { new: $("new").checked, remote: $("remote").checked, salary: $("salary").checked,
+              saved: $("saved").checked };
     var list = D.jobs.filter(function (j) {
       if (state.category && j.category !== state.category) return false;
       if (state.area && j.area !== state.area) return false;
       if (f.remote && !j.remote) return false;
       if (f.salary && !j.salary) return false;
       if (f.new && !j.is_new) return false;
+      if (f.saved && !favs.has(j.id)) return false;
       for (var i = 0; i < q.length; i++) if (j._text.indexOf(q[i]) === -1) return false;
       return true;
     });
@@ -150,12 +258,14 @@
     list.forEach(function (j) { frag.appendChild(card(j)); });
     ol.appendChild(frag);
 
-    var filtered = q.length || state.category || state.area || f.new || f.remote || f.salary;
+    var filtered = q.length || state.category || state.area || f.new || f.remote || f.salary || f.saved;
     $("count").textContent = filtered
       ? list.length + " of " + D.jobs.length + " jobs"
       : "All " + D.jobs.length + " jobs · newest first";
     $("reset").hidden = !filtered;
     $("empty").hidden = list.length > 0;
+    var n = D.jobs.filter(function (j) { return favs.has(j.id); }).length;
+    $("saved-n").textContent = n ? String(n) : "";
 
     // Keep filters in the URL so a view can be bookmarked or shared.
     var p = new URLSearchParams();
@@ -190,4 +300,5 @@
   $("reset").addEventListener("click", reset);
   $("reset2").addEventListener("click", reset);
   render();
+  setupAccounts();
 })();

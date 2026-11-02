@@ -48,7 +48,8 @@ def build_site(out_dir, listings, settings, sources_cfg, regions_cfg, now_local)
         "categories": CATEGORIES,
         "areas": areas,
         "search_links": links,
-        "jobs": [{k: v for k, v in j.items() if k not in ("match_reason", "id", "last_seen")} for j in listings],
+        "firebase": {k: v for k, v in (settings.get("firebase") or {}).items() if v} or None,
+        "jobs": [{k: v for k, v in j.items() if k not in ("match_reason", "last_seen")} for j in listings],
     }
     blob = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     (out_dir / "jobs.json").write_text(blob)
