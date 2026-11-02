@@ -1,5 +1,5 @@
 {
- "last_run": "2026-11-02T20:22:30.371762+00:00",
+ "last_run": "2026-11-02T20:30:22.629801+00:00",
  "listings": {
   "aclu|gift planning associate|new york": {
    "area": "New York",
@@ -1172,10 +1172,10 @@
    "company": "One Medical",
    "first_seen": "2026-11-02",
    "flags": [],
-   "id": "gh:onemedical:8337402",
+   "id": "gh:onemedical:8337405",
    "is_new": true,
    "last_seen": "2026-11-02",
-   "location": "Glastonbury, CT; Connecticut",
+   "location": "West Hartford, CT; Connecticut",
    "match_reason": "title+years",
    "posted": "2026-10-30",
    "region": "us_state",
@@ -1184,7 +1184,7 @@
    "source": "One Medical",
    "summary": "As a Member Support Specialist you will be an ambassador for patients in office, with a mastery of human connection and a strong drive for service. You will remove barriers to care, resulting in a truly exceptional in-office patient experience.",
    "title": "Administrative Assistant (Float)",
-   "url": "http://www.onemedical.com/careers/all-departments/8337402?gh_jid=8337402",
+   "url": "http://www.onemedical.com/careers/all-departments/8337405?gh_jid=8337405",
    "work_mode": "On-site"
   },
   "one medical|certified medical assistant|connecticut": {
@@ -1196,19 +1196,19 @@
    "flags": [
     "Experience not stated"
    ],
-   "id": "gh:onemedical:8337559",
+   "id": "gh:onemedical:8337173",
    "is_new": true,
    "last_seen": "2026-11-02",
-   "location": "Westport, CT; Connecticut",
+   "location": "Darien, CT; Connecticut",
    "match_reason": "title",
    "posted": "2026-10-30",
    "region": "us_state",
    "remote": false,
-   "salary": "$25.75\u2013$27.75/hr",
+   "salary": "$24\u2013$26/hr",
    "source": "One Medical",
    "summary": "As a One Medical Certified Medical Assistant, internally known as Lab Services Specialist/Member Support Specialist, at one of our offices, you\u2019ll provide an exceptional experience for our patients and help them accomplish an important part of their care journey by providing\u2026",
    "title": "Certified Medical Assistant",
-   "url": "http://www.onemedical.com/careers/all-departments/8337559?gh_jid=8337559",
+   "url": "http://www.onemedical.com/careers/all-departments/8337173?gh_jid=8337173",
    "work_mode": "On-site"
   },
   "one medical|float phlebotomist administrative assistant sugarloaf|georgia": {
@@ -1454,19 +1454,19 @@
    "flags": [
     "Experience not stated"
    ],
-   "id": "gh:onemedical:8338174",
+   "id": "gh:onemedical:8337700",
    "is_new": true,
    "last_seen": "2026-11-02",
-   "location": "New York, NY; New York",
+   "location": "White Plains, NY; New York",
    "match_reason": "title",
    "posted": "2026-10-30",
    "region": "us_state",
    "remote": false,
    "salary": "$25.75\u2013$27.75/hr",
    "source": "One Medical",
-   "summary": "As a One Medical Phlebotomist/Administrative Assistant (internally known as Lab Services Specialist/Member Support Specialist) at one of our offices, you\u2019ll provide an exceptional experience for our patients and help them accomplish an important part of their care journey by\u2026",
+   "summary": "As a One Medical Flex Phlebotomist/Administrative Assistant (internally known as Flex Lab Services Specialist/Member Support Specialist) at one of our offices, you\u2019ll provide an exceptional experience for our patients and help them accomplish an important part of their care\u2026",
    "title": "Phlebotomist / Administrative Assistant (Float)",
-   "url": "http://www.onemedical.com/careers/all-departments/8338174?gh_jid=8338174",
+   "url": "http://www.onemedical.com/careers/all-departments/8337700?gh_jid=8337700",
    "work_mode": "On-site"
   },
   "one medical|phlebotomist administrative assistant inner sunset|san francisco": {
@@ -2587,7 +2587,7 @@
   "Code for America": 10,
   "Coursera": 31,
   "Databricks": 914,
-  "DoorDash": 437,
+  "DoorDash": 438,
   "Dropbox": 27,
   "Duolingo": 54,
   "Faire": 64,
@@ -2609,9 +2609,9 @@
   "Ramp": 171,
   "Reddit": 162,
   "Robinhood": 160,
-  "Samsara": 331,
+  "Samsara": 330,
   "SoFi": 63,
-  "Stripe": 739,
+  "Stripe": 741,
   "Sweetgreen": 67,
   "Twist Bioscience": 47,
   "Twitch": 58,

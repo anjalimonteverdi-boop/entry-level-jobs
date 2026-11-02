@@ -1,16 +1,16 @@
-Run 2026-11-02 12:22 PST
+Run 2026-11-02 12:30 PST
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
 Airbnb                       ok            210       42      0
 Pinterest                    ok            168      133      0
 Lyft                         ok            172       91      6
 Dropbox                      ok             27       16      0
-Stripe                       ok            739      324      6
+Stripe                       ok            741      326      6
 Instacart                    ok             94       92      0
 Figma                        ok            140      100      1
 Gusto                        ok             83       83      1
 Reddit                       ok            162      143      0
-Samsara                      ok            331      273     10
+Samsara                      ok            330      273     10
 Databricks                   ok            914      494      2
 Asana                        ok            108       49      2
 Twitch                       ok             58       55      3
@@ -35,7 +35,7 @@ Twist Bioscience             ok             47       39      3
 Vox Media                    ok             21       21      1
 Faire                        ok             64       56      1
 Sweetgreen                   ok             67       67      2
-DoorDash                     ok            437      436     20
+DoorDash                     ok            438      437     20
 ACLU                         ok             17       17      1
 Palantir                     ok            302      238      4
 Zoox                         ok            226      225      1
@@ -45,7 +45,7 @@ OpenAI                       ok            805      628      0
 Hims & Hers                  ok            152      134      7
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
-Listings on site: 113  (new today: 66, removed as closed/expired: 159, carried over from failed sources: 0)
+Listings on site: 113  (new today: 66, removed as closed/expired: 0, carried over from failed sources: 0)
 
 CHECK THESE SOURCES:
   - Outschool: ERROR HTTPError: HTTP Error 404: Not Found
