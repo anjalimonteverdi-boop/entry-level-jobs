@@ -25,11 +25,15 @@ def build_site(out_dir, listings, settings, sources_cfg, regions_cfg, now_local)
         if r.get("region_default_area"):
             areas.append(r["region_default_area"])
     if regions_cfg.get("include_remote_us", True):
-        areas.append("Remote (US)")
+        areas.insert(0, "Remote (US)")
+    if regions_cfg.get("include_all_us"):
+        areas += sorted({j["area"] for j in listings if j.get("region") == "us_state"})
 
     search_name = " / ".join(
         regions_cfg["regions"][k].get("search_name", k) for k in regions_cfg.get("active_regions", [])
     )
+    if regions_cfg.get("include_all_us"):
+        search_name = "United States"
     links = [
         {"name": l["name"], "url": l["url"].replace("{region}", urllib.parse.quote(search_name))}
         for l in sources_cfg.get("search_links") or []

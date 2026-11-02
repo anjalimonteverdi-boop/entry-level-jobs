@@ -119,7 +119,10 @@ def main(argv=None):
     usajobs_locations = []
     for key in regions_cfg.get("active_regions", []):
         usajobs_locations += regions_cfg["regions"][key].get("usajobs_locations") or []
+    if regions_cfg.get("include_all_us"):
+        usajobs_locations = []  # empty = search nationwide
     ctx = dict(usajobs_locations=usajobs_locations,
+               include_all_us=regions_cfg.get("include_all_us", False),
                include_remote_us=regions_cfg.get("include_remote_us", True))
 
     data_dir = Path(args.data)

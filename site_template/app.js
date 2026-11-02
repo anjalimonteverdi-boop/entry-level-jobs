@@ -6,9 +6,8 @@
     return;
   }
 
-  // Category/area labels are plain text for a minimal look.
+  // Category labels are plain text for a minimal look.
   var EMOJI = {};
-  var AREA_EMOJI = {};
 
   // Last word of the title in orange, e.g. "Launchpad <Listings>".
   var words = D.title.split(" ");
@@ -37,7 +36,7 @@
     return c;
   }
 
-  // Single-select chip rows (category, area). "All" is the empty value.
+  // Single-select chip row (category). "All" is the empty value.
   var state = { category: "", area: "" };
   function chipRow(id, values, counts, emoji) {
     var box = $(id);
@@ -64,7 +63,17 @@
     });
   }
   chipRow("category", D.categories, countBy("category"), EMOJI);
-  chipRow("area", D.areas, countBy("area"), AREA_EMOJI);
+  // Location is a dropdown: with all US states there are too many for chips.
+  var areaCounts = countBy("area");
+  D.areas.filter(function (v) { return areaCounts[v]; }).forEach(function (v) {
+    var o = el("option", null, v + " (" + areaCounts[v] + ")");
+    o.value = v;
+    $("area").appendChild(o);
+  });
+  $("area").addEventListener("change", function () {
+    state.area = $("area").value;
+    render();
+  });
 
   D.search_links.forEach(function (l) {
     var a = el("a", null, l.name + " ↗");
@@ -162,13 +171,17 @@
     $("q").value = "";
     state.category = state.area = "";
     boxes.forEach(function (id) { $(id).checked = false; });
-    syncChips("category"); syncChips("area");
+    syncChips("category"); $("area").value = "";
     render();
   }
 
   var params = new URLSearchParams(location.search);
   if (params.get("q")) $("q").value = params.get("q");
-  ["category", "area"].forEach(function (id) { state[id] = params.get(id) || ""; syncChips(id); });
+  state.category = params.get("category") || "";
+  syncChips("category");
+  state.area = params.get("area") || "";
+  $("area").value = state.area;
+  if ($("area").value !== state.area) state.area = "";
   boxes.forEach(function (id) {
     $(id).checked = params.get(id) === "1";
     $(id).addEventListener("change", render);

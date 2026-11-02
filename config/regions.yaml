@@ -16,6 +16,12 @@ active_regions: [sf_bay_area]
 # Also include fully remote roles open to people anywhere in the US.
 include_remote_us: true
 
+# Also include on-site and hybrid jobs anywhere else in the US. Jobs inside an
+# active region keep that region's areas (San Francisco, East Bay...); all
+# other US jobs are labeled by state (Texas, New York...). Set to false to
+# go back to only the regions above + remote.
+include_all_us: true
+
 regions:
   sf_bay_area:
     label: SF Bay Area

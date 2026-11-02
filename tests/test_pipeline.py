@@ -67,8 +67,21 @@ class Locations(unittest.TestCase):
         self.assertEqual(self.area("Napa, CA"), "North Bay")
         self.assertEqual(self.area("Dublin, CA"), "East Bay")
         self.assertIsNone(self.area("Dublin, Ireland"))
+
+    def test_bay_area_only(self):
+        self.m = LocationMatcher(dict(cfg("regions.yaml"), include_all_us=False))
+        self.assertEqual(self.area("Dublin, CA"), "East Bay")
         self.assertIsNone(self.area("Newark, NJ"))
         self.assertIsNone(self.area("New York, NY"))
+
+    def test_rest_of_us(self):
+        self.assertEqual(self.area("Newark, NJ"), "New Jersey")
+        self.assertEqual(self.area("New York, NY"), "New York")
+        self.assertEqual(self.area("Austin"), "Texas")
+        self.assertEqual(self.area("Washington, DC"), "District of Columbia")
+        self.assertEqual(self.area("Los Angeles, California"), "California")
+        self.assertIsNone(self.area("Toronto, ON"))
+        self.assertIsNone(self.area("London, UK"))
 
     def test_remote(self):
         self.assertEqual(self.area("Remote - US"), "Remote (US)")

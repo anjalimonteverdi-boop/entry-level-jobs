@@ -127,7 +127,9 @@ def fetch_usajobs(src, http, ctx):
     paths = ";".join(src.get("hiring_paths") or ["public"])
 
     searches = [{"LocationName": loc} for loc in ctx["usajobs_locations"]]
-    if ctx["include_remote_us"]:
+    if ctx.get("include_all_us"):
+        searches = [{}]
+    elif ctx["include_remote_us"]:
         searches.append({"RemoteIndicator": "True"})
 
     seen, out = set(), []

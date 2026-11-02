@@ -33,6 +33,27 @@ _FOREIGN = phrase_regex([
     "asia", "singapore", "japan", "tokyo", "korea", "china", "australia", "sydney",
     "new zealand", "israel", "philippines", "latam", "worldwide", "global",
 ])
+# Big cities that postings often list without a state ("Austin", "NYC").
+CITY_STATES = {
+    "new york city": "NY", "nyc": "NY", "manhattan": "NY", "brooklyn": "NY",
+    "los angeles": "CA", "san diego": "CA", "sacramento": "CA", "irvine": "CA",
+    "seattle": "WA", "bellevue": "WA", "redmond": "WA", "portland": "OR",
+    "chicago": "IL", "boston": "MA", "cambridge, ma": "MA", "austin": "TX",
+    "dallas": "TX", "houston": "TX", "san antonio": "TX", "denver": "CO",
+    "boulder": "CO", "atlanta": "GA", "miami": "FL", "tampa": "FL", "orlando": "FL",
+    "phoenix": "AZ", "salt lake city": "UT", "minneapolis": "MN", "detroit": "MI",
+    "pittsburgh": "PA", "philadelphia": "PA", "nashville": "TN", "raleigh": "NC",
+    "charlotte": "NC", "durham": "NC", "las vegas": "NV", "columbus": "OH",
+    "washington, d.c.": "DC", "washington dc": "DC", "washington d.c.": "DC",
+}
+_DC = re.compile(r"washington,?\s*d\.?c\.?|,\s*dc\b|district of columbia", re.I)
+_STATE_CODE = re.compile(r"(?:,|-|\()\s*(" + "|".join(US_STATES) + r")\b(?!\s*\.)")
+_STATE_NAME = re.compile(
+    r"(?<![\w])(" + "|".join(re.escape(n) for n in sorted(US_STATES.values(), key=len, reverse=True))
+    + r")(?![\w])", re.I)
+_NAME_TO_CODE = {n.lower(): c for c, n in US_STATES.items()}
+_CITY = phrase_regex(CITY_STATES)
+
 _REMOTE = re.compile(r"\bremote\b|work from home|\bwfh\b|anywhere in the us", re.I)
 _HYBRID = re.compile(r"\bhybrid\b", re.I)
 _SEGMENT_SPLIT = re.compile(r";|\||/| or |\n", re.I)
@@ -41,6 +62,7 @@ _SEGMENT_SPLIT = re.compile(r";|\||/| or |\n", re.I)
 class LocationMatcher:
     def __init__(self, regions_cfg):
         self.include_remote_us = regions_cfg.get("include_remote_us", True)
+        self.include_all_us = regions_cfg.get("include_all_us", False)
         self.regions = []
         for key in regions_cfg.get("active_regions", []):
             r = regions_cfg["regions"][key]
@@ -72,6 +94,22 @@ class LocationMatcher:
                     return r, r["default_area"]
         return None, None
 
+    def _match_state(self, text):
+        """Return the US state name for an on-site location, or None."""
+        for seg in _SEGMENT_SPLIT.split(text):
+            if _DC.search(seg):
+                return US_STATES["DC"]
+            m = _STATE_CODE.search(seg)
+            if m:
+                return US_STATES[m.group(1)]
+            m = _CITY.search(seg)
+            if m:
+                return US_STATES[CITY_STATES[m.group(0).lower()]]
+            m = _STATE_NAME.search(seg)
+            if m and not _FOREIGN.search(seg):
+                return US_STATES[_NAME_TO_CODE[m.group(1).lower()]]
+        return None
+
     def _is_remote_us(self, p, text):
         remote = p.get("workplace") == "remote" or bool(_REMOTE.search(text))
         if not remote:
@@ -89,7 +127,10 @@ class LocationMatcher:
         text = f"{loc_text} ; {p.get('title', '')}"
         region, area = self._match_region(loc_text)
         remote_us = self.include_remote_us and self._is_remote_us(p, text)
-        if not region and not remote_us:
+        state = None
+        if not region and not remote_us and self.include_all_us:
+            state = self._match_state(loc_text)
+        if not region and not remote_us and not state:
             return None
         if remote_us:
             mode = "Remote"
@@ -98,8 +139,8 @@ class LocationMatcher:
         else:
             mode = "On-site"
         return dict(
-            region=region["key"] if region else "remote_us",
-            area=area if region else "Remote (US)",
+            region=region["key"] if region else ("us_state" if state else "remote_us"),
+            area=area if region else (state or "Remote (US)"),
             remote=remote_us,
             work_mode=mode,
             location_display=_display(loc_text, remote_us),
