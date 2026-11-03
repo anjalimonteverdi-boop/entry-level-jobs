@@ -100,7 +100,10 @@ class Locations(unittest.TestCase):
         self.assertEqual(self.area("New York, NY"), "New York")
         self.assertEqual(self.area("Austin"), "Texas")
         self.assertEqual(self.area("Washington, DC"), "District of Columbia")
-        self.assertEqual(self.area("Los Angeles, California"), "California")
+        self.assertEqual(self.area("Los Angeles, California"), "Los Angeles")
+        self.assertEqual(self.area("Fresno, CA"), "Fresno / Visalia")
+        self.assertEqual(self.area("Redondo Beach, California"), "California")
+        self.assertIsNone(self.area("Toronto, CA; Canada Locations"))
         self.assertIsNone(self.area("Toronto, ON"))
         self.assertIsNone(self.area("London, UK"))
 

@@ -77,14 +77,53 @@
   }
   chipRow("posted", POSTED, postedCounts(D.jobs), POSTED_LABELS);
   chipRow("category", D.categories, countBy("category"), {});
-  // Location is a dropdown: with all US states there are too many for chips.
+  // Location is a grouped dropdown: a state group (California), its regions
+  // (Northern California...), their areas (East Bay...), then other states.
+  // Values: "a:<area>", "r:<region key>", "g:<group>".
+  var REGIONS = D.regions || [];
+  var regionByKey = {};
+  REGIONS.forEach(function (r) { regionByKey[r.key] = r; });
+  function inArea(j, v) {
+    var kind = v.slice(0, 2), name = v.slice(2);
+    if (kind === "a:") return j.area === name;
+    if (kind === "r:") return j.region === name;
+    if (kind === "g:") {
+      var r = regionByKey[j.region];
+      return r ? r.group === name : j.region === "us_state" && j.area === name;
+    }
+    return true;
+  }
   var areaCounts = countBy("area");
-  D.areas.filter(function (v) { return areaCounts[v]; }).forEach(function (v) {
-    var o = el("option", null, v + " (" + areaCounts[v] + ")");
-    o.value = v;
-    o.dataset.name = v;
-    $("area").appendChild(o);
+  function addOption(parent, value, label, depth) {
+    var o = el("option", null, label);
+    o.value = value;
+    o.dataset.name = "   ".repeat(depth) + label;
+    parent.appendChild(o);
+  }
+  if (areaCounts["Remote (US)"]) addOption($("area"), "a:Remote (US)", "Remote (US)", 0);
+  var groups = [];
+  REGIONS.forEach(function (r) { if (groups.indexOf(r.group) === -1) groups.push(r.group); });
+  groups.forEach(function (g) {
+    var og = document.createElement("optgroup");
+    og.label = g;
+    addOption(og, "g:" + g, "All of " + g, 0);
+    REGIONS.filter(function (r) { return r.group === g; }).forEach(function (r) {
+      if (REGIONS.filter(function (x) { return x.group === g; }).length > 1) addOption(og, "r:" + r.key, r.label, 1);
+      r.areas.forEach(function (a) { if (areaCounts[a]) addOption(og, "a:" + a, a, 2); });
+    });
+    if (areaCounts[g]) addOption(og, "a:" + g, "Elsewhere in " + g, 1);
+    $("area").appendChild(og);
   });
+  var states = D.areas.filter(function (a) {
+    return areaCounts[a] && a !== "Remote (US)" && groups.indexOf(a) === -1 &&
+      !REGIONS.some(function (r) { return r.areas.indexOf(a) !== -1; });
+  });
+  if (states.length) {
+    var og2 = document.createElement("optgroup");
+    og2.label = groups.length ? "Other states" : "States";
+    states.forEach(function (a) { addOption(og2, "a:" + a, a, 0); });
+    $("area").appendChild(og2);
+  }
   $("area").addEventListener("change", function () {
     state.area = $("area").value;
     render();
@@ -378,11 +417,10 @@
         b.hidden = n === 0 && state[id] !== v;
       });
     });
-    var ac = {};
-    D.jobs.forEach(function (j) { if (matches(j, "area")) ac[j.area] = (ac[j.area] || 0) + 1; });
+    var pool = D.jobs.filter(function (j) { return matches(j, "area"); });
     Array.prototype.forEach.call($("area").options, function (o) {
       if (!o.value) return;
-      var n = ac[o.value] || 0;
+      var n = pool.filter(function (j) { return inArea(j, o.value); }).length;
       o.textContent = o.dataset.name + " (" + n + ")";
       o.hidden = o.disabled = n === 0 && state.area !== o.value;
     });
@@ -393,7 +431,7 @@
     // skip: leave one filter out, so its own counts show what each choice would give.
     function matches(j, skip) {
       if (skip !== "category" && state.category && j.category !== state.category) return false;
-      if (skip !== "area" && state.area && j.area !== state.area) return false;
+      if (skip !== "area" && state.area && !inArea(j, state.area)) return false;
       if (skip !== "posted" && state.posted && j._posted.indexOf(state.posted) === -1) return false;
       if (f.remote && !j.remote) return false;
       if (f.salary && !j.salary) return false;
@@ -446,6 +484,7 @@
   state.posted = params.get("posted") || (params.get("new") === "1" ? "today" : "");
   syncChips("posted");
   state.area = params.get("area") || "";
+  if (state.area && state.area.charAt(1) !== ":") state.area = "a:" + state.area; // old links
   $("area").value = state.area;
   if ($("area").value !== state.area) state.area = "";
   boxes.forEach(function (id) {

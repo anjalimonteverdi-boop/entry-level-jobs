@@ -29,6 +29,17 @@ def build_site(out_dir, listings, settings, sources_cfg, regions_cfg, now_local)
     if regions_cfg.get("include_all_us"):
         areas += sorted({j["area"] for j in listings if j.get("region") == "us_state"})
 
+    # Grouped location menu: state group > region > areas.
+    regions = []
+    for key in regions_cfg.get("active_regions", []):
+        r = regions_cfg["regions"][key]
+        names = list((r.get("areas") or {}).keys())
+        if r.get("region_default_area"):
+            names.append(r["region_default_area"])
+        regions.append({"key": key, "label": r.get("label", key),
+                        "group": r.get("group") or r.get("state_name") or r.get("label", key),
+                        "state": r.get("state_name", ""), "areas": names})
+
     search_name = " / ".join(
         regions_cfg["regions"][k].get("search_name", k) for k in regions_cfg.get("active_regions", [])
     )
@@ -47,6 +58,7 @@ def build_site(out_dir, listings, settings, sources_cfg, regions_cfg, now_local)
         "updated_iso": now_local.isoformat(),
         "categories": CATEGORIES,
         "areas": areas,
+        "regions": regions,
         "search_links": links,
         "firebase": {k: v for k, v in (settings.get("firebase") or {}).items() if v} or None,
         "jobs": [{k: v for k, v in j.items() if k not in ("match_reason", "last_seen")} for j in listings],

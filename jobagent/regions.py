@@ -100,7 +100,9 @@ class LocationMatcher:
             if _DC.search(seg):
                 return US_STATES["DC"]
             m = _STATE_CODE.search(seg)
-            if m:
+            # "CA" is also short for Canada ("Toronto, CA"): trust it only
+            # when nothing else in the location points abroad.
+            if m and not (m.group(1) == "CA" and _FOREIGN.search(text)):
                 return US_STATES[m.group(1)]
             m = _CITY.search(seg)
             if m:

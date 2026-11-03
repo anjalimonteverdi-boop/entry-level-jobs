@@ -11,7 +11,7 @@
 # `ambiguous_places`; those only match when the location also mentions the
 # state (e.g. "Dublin, CA" or "Dublin, California").
 
-active_regions: [sf_bay_area]
+active_regions: [sf_bay_area, central_valley, socal]
 
 # Also include fully remote roles open to people anywhere in the US.
 include_remote_us: true
@@ -24,7 +24,9 @@ include_all_us: true
 
 regions:
   sf_bay_area:
-    label: SF Bay Area
+    label: Northern California
+    # Regions that share a `group` are listed together under it on the site.
+    group: California
     state: CA
     state_name: California
     # Name used in the "More places to search" links (LinkedIn, Indeed...)
@@ -63,6 +65,62 @@ regions:
                  healdsburg, calistoga, st. helena, saint helena, vallejo,
                  american canyon, benicia, marin, north bay]
         ambiguous_places: [fairfield]
+      Sacramento area:
+        places: [sacramento, west sacramento, elk grove, roseville, rocklin,
+                 folsom, rancho cordova, citrus heights, davis, woodland,
+                 chico, redding, eureka, arcata]
+        ambiguous_places: [auburn, lincoln]
+      Santa Cruz / Monterey:
+        places: [santa cruz, scotts valley, watsonville, monterey, salinas,
+                 seaside, carmel, carmel-by-the-sea, capitola]
+
+  central_valley:
+    label: Central Valley
+    group: California
+    state: CA
+    state_name: California
+    search_name: Fresno, CA
+    usajobs_locations: [Fresno, California, Bakersfield, California]
+    region_phrases: [central valley, san joaquin valley]
+    region_default_area: Central Valley (general)
+    areas:
+      Fresno / Visalia:
+        places: [fresno, clovis, visalia, tulare, hanford, madera, merced]
+      Stockton / Modesto:
+        places: [stockton, modesto, lodi, tracy, manteca, turlock, ceres]
+      Bakersfield:
+        places: [bakersfield, delano]
+
+  socal:
+    label: Southern California
+    group: California
+    state: CA
+    state_name: California
+    search_name: Los Angeles, CA
+    usajobs_locations: [Los Angeles, California, San Diego, California]
+    region_phrases: [southern california, socal, greater los angeles]
+    region_default_area: Southern California (general)
+    areas:
+      Los Angeles:
+        places: [los angeles, santa monica, culver city, west hollywood,
+                 beverly hills, el segundo, playa vista, venice, marina del rey,
+                 long beach, torrance, burbank, santa clarita, inglewood,
+                 hawthorne, manhattan beach, west los angeles, hollywood]
+        ambiguous_places: [pasadena, glendale, carson]
+      Orange County:
+        places: [irvine, anaheim, santa ana, costa mesa, newport beach,
+                 huntington beach, orange county, fullerton, tustin,
+                 lake forest, mission viejo, laguna niguel, aliso viejo]
+      San Diego:
+        places: [san diego, la jolla, carlsbad, oceanside, escondido,
+                 chula vista, del mar, poway]
+      Inland Empire:
+        places: [riverside, san bernardino, rancho cucamonga, temecula,
+                 palm springs, inland empire, moreno valley, fontana]
+        ambiguous_places: [ontario, corona]
+      Santa Barbara / Ventura:
+        places: [santa barbara, goleta, ventura, oxnard, thousand oaks,
+                 camarillo, san luis obispo]
 
   # Example of a future region (inactive until added to active_regions):
   # los_angeles:
