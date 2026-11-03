@@ -45,12 +45,15 @@
       </label>
 
       <div class="quick" role="group" aria-label="Quick filters">
-        <label class="toggle"><input id="new" type="checkbox"><span>New today</span></label>
         <label class="toggle"><input id="remote" type="checkbox"><span>Remote</span></label>
         <label class="toggle"><input id="salary" type="checkbox"><span>Shows pay</span></label>
         <label class="toggle"><input id="saved" type="checkbox"><span>♥ Saved <b id="saved-n" class="saved-n"></b></span></label>
       </div>
 
+      <div class="group">
+        <p class="group-label">When posted?</p>
+        <div id="posted" class="chips" role="radiogroup" aria-label="When posted"></div>
+      </div>
       <div class="group">
         <p class="group-label">What kind of work?</p>
         <div id="category" class="chips" role="radiogroup" aria-label="Category"></div>
@@ -63,7 +66,7 @@
 
     <button id="open-feed" type="button" class="feed-cta">
       <span class="feed-cta-icon" aria-hidden="true">▶</span>
-      <span><b>Swipe mode</b><br><small>Scroll jobs one at a time, like a feed</small></span>
+      <span><b>Tap to activate swipe mode</b><br><small>See jobs one at a time, full screen</small></span>
     </button>
 
     <div class="results-bar">

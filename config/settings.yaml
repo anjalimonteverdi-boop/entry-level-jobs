@@ -17,8 +17,9 @@ firebase:
 # problems. It's sent in the User-Agent header of every request.
 contact: "set-your-email@example.com"
 
-# Drop listings posted more than this many days ago.
-max_age_days: 30
+# Drop listings posted more than this many days ago. Jobs older than 30
+# days show under the site's "Older" filter.
+max_age_days: 60
 
 # If a source fails, keep showing its listings from earlier runs for this
 # many days (so one bad day doesn't wipe a company off the site).

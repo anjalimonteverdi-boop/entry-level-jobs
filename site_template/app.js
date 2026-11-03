@@ -7,7 +7,6 @@
   }
 
   // Category labels are plain text for a minimal look.
-  var EMOJI = {};
 
   // Last word of the title in orange, e.g. "Launchpad <Listings>".
   var words = D.title.split(" ");
@@ -37,8 +36,23 @@
   }
 
   // Single-select chip row (category). "All" is the empty value.
-  var state = { category: "", area: "" };
-  function chipRow(id, values, counts, emoji) {
+  var state = { category: "", area: "", posted: "" };
+
+  // How long ago a job was posted, in days (first seen if no post date).
+  var updatedDay = new Date(D.updated_iso);
+  D.jobs.forEach(function (j) {
+    var d = j.posted || j.first_seen;
+    j._age = d ? Math.max(0, Math.round((updatedDay - new Date(d + "T12:00:00")) / 864e5)) : 0;
+    j._posted = j.is_new ? ["today", "week", "month"] : j._age <= 7 ? ["week", "month"] : j._age <= 30 ? ["month"] : ["older"];
+  });
+  var POSTED = ["today", "week", "month", "older"];
+  var POSTED_LABELS = { today: "New today", week: "Past week", month: "Past month", older: "Older" };
+  function postedCounts(list) {
+    var c = {};
+    list.forEach(function (j) { j._posted.forEach(function (k) { c[k] = (c[k] || 0) + 1; }); });
+    return c;
+  }
+  function chipRow(id, values, counts, labels) {
     var box = $(id);
     var all = [""].concat(values.filter(function (v) { return counts[v]; }));
     all.forEach(function (v) {
@@ -46,8 +60,7 @@
       b.type = "button";
       b.setAttribute("role", "radio");
       b.dataset.value = v;
-      var label = v ? ((emoji[v] ? emoji[v] + " " : "") + v) : "All";
-      b.appendChild(document.createTextNode(label));
+      b.appendChild(document.createTextNode(v ? (labels[v] || v) : "All"));
       if (v) b.appendChild(el("span", "n", String(counts[v])));
       b.addEventListener("click", function () {
         state[id] = v;
@@ -62,12 +75,14 @@
       b.setAttribute("aria-checked", String(b.dataset.value === state[id]));
     });
   }
-  chipRow("category", D.categories, countBy("category"), EMOJI);
+  chipRow("posted", POSTED, postedCounts(D.jobs), POSTED_LABELS);
+  chipRow("category", D.categories, countBy("category"), {});
   // Location is a dropdown: with all US states there are too many for chips.
   var areaCounts = countBy("area");
   D.areas.filter(function (v) { return areaCounts[v]; }).forEach(function (v) {
     var o = el("option", null, v + " (" + areaCounts[v] + ")");
     o.value = v;
+    o.dataset.name = v;
     $("area").appendChild(o);
   });
   $("area").addEventListener("change", function () {
@@ -344,21 +359,50 @@
     if (e.key === "ArrowUp" || e.key === "k") { t.scrollBy({ top: -t.clientHeight, behavior: "smooth" }); e.preventDefault(); }
   });
 
-  var boxes = ["new", "remote", "salary", "saved"];
+  var boxes = ["remote", "salary", "saved"];
+
+  // Show how many jobs each filter choice would actually give with the
+  // other filters applied, and hide choices that would give none.
+  function updateCounts(matches) {
+    [["category", function (j) { return [j.category]; }],
+     ["posted", function (j) { return j._posted; }]].forEach(function (row) {
+      var id = row[0], keys = row[1], c = {};
+      D.jobs.forEach(function (j) {
+        if (matches(j, id)) keys(j).forEach(function (k) { c[k] = (c[k] || 0) + 1; });
+      });
+      Array.prototype.forEach.call($(id).children, function (b) {
+        var v = b.dataset.value;
+        if (!v) return;
+        var n = c[v] || 0;
+        b.querySelector(".n").textContent = String(n);
+        b.hidden = n === 0 && state[id] !== v;
+      });
+    });
+    var ac = {};
+    D.jobs.forEach(function (j) { if (matches(j, "area")) ac[j.area] = (ac[j.area] || 0) + 1; });
+    Array.prototype.forEach.call($("area").options, function (o) {
+      if (!o.value) return;
+      var n = ac[o.value] || 0;
+      o.textContent = o.dataset.name + " (" + n + ")";
+      o.hidden = o.disabled = n === 0 && state.area !== o.value;
+    });
+  }
   function render() {
     var q = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    var f = { new: $("new").checked, remote: $("remote").checked, salary: $("salary").checked,
-              saved: $("saved").checked };
-    var list = D.jobs.filter(function (j) {
-      if (state.category && j.category !== state.category) return false;
-      if (state.area && j.area !== state.area) return false;
+    var f = { remote: $("remote").checked, salary: $("salary").checked, saved: $("saved").checked };
+    // skip: leave one filter out, so its own counts show what each choice would give.
+    function matches(j, skip) {
+      if (skip !== "category" && state.category && j.category !== state.category) return false;
+      if (skip !== "area" && state.area && j.area !== state.area) return false;
+      if (skip !== "posted" && state.posted && j._posted.indexOf(state.posted) === -1) return false;
       if (f.remote && !j.remote) return false;
       if (f.salary && !j.salary) return false;
-      if (f.new && !j.is_new) return false;
       if (f.saved && !favs.has(j.id)) return false;
       for (var i = 0; i < q.length; i++) if (j._text.indexOf(q[i]) === -1) return false;
       return true;
-    });
+    }
+    var list = D.jobs.filter(function (j) { return matches(j); });
+    updateCounts(matches);
     current = list;
     if (!$("feed").hidden) buildFeed();
     var ol = $("jobs");
@@ -367,7 +411,7 @@
     list.forEach(function (j) { frag.appendChild(card(j)); });
     ol.appendChild(frag);
 
-    var filtered = q.length || state.category || state.area || f.new || f.remote || f.salary || f.saved;
+    var filtered = q.length || state.category || state.area || state.posted || f.remote || f.salary || f.saved;
     $("count").textContent = filtered
       ? list.length + " of " + D.jobs.length + " jobs"
       : "All " + D.jobs.length + " jobs · newest first";
@@ -381,6 +425,7 @@
     if ($("q").value.trim()) p.set("q", $("q").value.trim());
     if (state.category) p.set("category", state.category);
     if (state.area) p.set("area", state.area);
+    if (state.posted) p.set("posted", state.posted);
     boxes.forEach(function (id) { if (f[id]) p.set(id, "1"); });
     var qs = p.toString();
     history.replaceState(null, "", qs ? "?" + qs : location.pathname);
@@ -388,9 +433,9 @@
 
   function reset() {
     $("q").value = "";
-    state.category = state.area = "";
+    state.category = state.area = state.posted = "";
     boxes.forEach(function (id) { $(id).checked = false; });
-    syncChips("category"); $("area").value = "";
+    syncChips("category"); syncChips("posted"); $("area").value = "";
     render();
   }
 
@@ -398,6 +443,8 @@
   if (params.get("q")) $("q").value = params.get("q");
   state.category = params.get("category") || "";
   syncChips("category");
+  state.posted = params.get("posted") || (params.get("new") === "1" ? "today" : "");
+  syncChips("posted");
   state.area = params.get("area") || "";
   $("area").value = state.area;
   if ($("area").value !== state.area) state.area = "";
@@ -406,6 +453,14 @@
     $(id).addEventListener("change", render);
   });
   $("q").addEventListener("input", render);
+  // Results update as you type; Enter closes the keyboard and jumps to them.
+  $("q").addEventListener("keydown", function (e) {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    render();
+    $("q").blur();
+    $("count").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
   $("reset").addEventListener("click", reset);
   $("reset2").addEventListener("click", reset);
   render();

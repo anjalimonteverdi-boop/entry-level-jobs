@@ -125,7 +125,7 @@ class Pipeline(unittest.TestCase):
             self.assertEqual(titles.count("Marketing Coordinator"), 1)  # deduped
             self.assertNotIn("Senior Software Engineer", titles)
             self.assertNotIn("Brand Ambassador", titles)
-            self.assertNotIn("Junior Analyst", titles)  # older than 30 days
+            self.assertNotIn("Junior Analyst", titles)  # older than max_age_days (60)
             self.assertNotIn("Supervisory Program Analyst", titles)
             mc = next(j for j in jobs if j["title"] == "Marketing Coordinator")
             self.assertEqual(mc["salary"], "$65K–$80K/yr")
