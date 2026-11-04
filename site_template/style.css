@@ -198,7 +198,8 @@ h1 {
 .job-head { min-width: 0; flex: 1; overflow-wrap: anywhere; }
 .job h3 { margin: 0; font: 700 1.08rem/1.3 var(--head); letter-spacing: -.01em; }
 .job h3 a { color: inherit; text-decoration: none; }
-.job h3 a::after { content: ""; position: absolute; inset: 0; } /* whole row clickable */
+.job { touch-action: manipulation; } /* no double-tap zoom: double-tap saves */
+.job h3 a:hover { text-decoration: underline; }
 .job:hover h3 { color: var(--blue); }
 .job:hover { box-shadow: inset 3px 0 0 var(--orange); }
 .company { color: var(--muted); font-size: .92rem; }
@@ -356,6 +357,24 @@ h1 {
 .feed-end button { margin-top: 12px; }
 body.feed-open { overflow: hidden; }
 
+/* heart that pops when a job is double-tapped */
+.burst {
+  position: fixed; z-index: 100;
+  font-size: 4.5rem; line-height: 1; color: var(--orange);
+  pointer-events: none; transform: translate(-50%, -50%) scale(0);
+  animation: burst .8s ease-out forwards;
+}
+.burst.big { font-size: 7rem; color: #fff; }
+@keyframes burst {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  20% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+  40% { transform: translate(-50%, -50%) scale(.95); }
+  80% { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+.slide { touch-action: pan-y; }
+.double-tip { margin: 0; font-size: .8rem; color: var(--muted); }
+
 .empty { text-align: center; padding: 40px 0; color: var(--muted); }
 .empty-emoji { font-size: 2.4rem; margin: 0; }
 
@@ -382,4 +401,5 @@ body.feed-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
+  .burst { animation-duration: .01s; }
 }

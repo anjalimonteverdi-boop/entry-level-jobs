@@ -188,6 +188,7 @@
     apply.setAttribute("aria-label", "Apply: " + j.title + " at " + j.company);
     foot.appendChild(apply);
     li.appendChild(foot);
+    onDoubleTap(li, function (e) { saveFav(j.id, e, false); });
     return li;
   }
 
@@ -205,6 +206,29 @@
     var arr = Array.from(favs);
     try { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); } catch (e) {}
     if (cloud) cloud.db.collection("users").doc(cloud.uid).set({ favs: arr }, { merge: true });
+  }
+  // Double-tap (or double-click) a job to save it, like a photo on Instagram.
+  // It only ever saves; the heart button is how to unsave.
+  function onDoubleTap(node, fn) {
+    var last = 0;
+    node.addEventListener("pointerup", function (e) {
+      if (e.target.closest("a, button")) return;
+      var now = Date.now();
+      if (now - last < 320) { last = 0; e.preventDefault(); fn(e); } else last = now;
+    });
+    // Stop the double-click from selecting a word.
+    node.addEventListener("mousedown", function (e) { if (e.detail > 1) e.preventDefault(); });
+  }
+  function saveFav(id, e, big) {
+    // The heart pops where the finger tapped. It lives on <body> because
+    // saving re-draws the list underneath it.
+    var burst = el("span", big ? "burst big" : "burst", "♥");
+    burst.style.left = e.clientX + "px";
+    burst.style.top = e.clientY + "px";
+    document.body.appendChild(burst);
+    setTimeout(function () { burst.remove(); }, 800);
+    if (favs.has(id)) return;
+    toggleFav(id);
   }
   function toggleFav(id) {
     if (favs.has(id)) favs.delete(id); else favs.add(id);
@@ -337,6 +361,7 @@
     rail.appendChild(save);
     rail.appendChild(railButton("↗", "Share", function () { shareJob(j); }));
     sl.appendChild(rail);
+    onDoubleTap(sl, function (e) { saveFav(j.id, e, true); });
     return sl;
   }
   function syncFeedHearts() {
