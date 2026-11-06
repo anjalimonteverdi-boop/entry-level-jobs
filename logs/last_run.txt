@@ -1,51 +1,51 @@
-Run 2026-11-05 06:45 PST
+Run 2026-11-06 12:10 PST
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
-Airbnb                       ok            207       39      0
-Pinterest                    ok            167      125      3
-Lyft                         ok            176       93     15
-Dropbox                      ok             31       20      1
-Stripe                       ok            762      329     10
-Instacart                    ok             88       86      0
-Figma                        ok            144      102      6
-Gusto                        ok             81       81      2
-Reddit                       ok            163      143      0
-Samsara                      ok            312      252     10
-Databricks                   ok            924      490      2
-Asana                        ok            110       49      2
-Twitch                       ok             65       63      3
-Glossier                     ok             22       20      0
+Airbnb                       ok            204       39      0
+Pinterest                    ok            166      124      3
+Lyft                         ok            167       93     15
+Dropbox                      ok             33       22      1
+Stripe                       ok            766      329      8
+Instacart                    ok             91       89      2
+Figma                        ok            145      103      6
+Gusto                        ok             82       82      2
+Reddit                       ok            161      141      0
+Samsara                      ok            310      243     11
+Databricks                   ok            928      488      2
+Asana                        ok            109       48      2
+Twitch                       ok             59       58      3
+Glossier                     ok             24       22      0
 Calm                         ok              1        1      0
 Khan Academy                 ok              4        4      1
-Wikimedia Foundation         ok             14       14      1
-Mozilla                      ok            113       23      0
+Wikimedia Foundation         ok             15       15      1
+Mozilla                      ok            113       24      0
 Code for America             ok             10       10      0
-Robinhood                    ok            151      132      9
-Chime                        ok             74       74      3
-Brex                         ok            271      255     10
-Affirm                       ok            235      163      4
-SoFi                         ok             53       43      0
-One Medical                  ok            359      357     55
-Coursera                     ok             32        1      0
-Duolingo                     ok             55       45      3
+Robinhood                    ok            151      133     10
+Chime                        ok             73       73      3
+Brex                         ok            267      251     10
+Affirm                       ok            222      163      4
+SoFi                         ok             45       36      0
+One Medical                  ok            355      353     53
+Coursera                     ok             39        1      0
+Duolingo                     ok             59       48      2
 MasterClass                  ok              0        0      0
 Outschool                    error           0        0      0   HTTPError: HTTP Error 404: Not Found
 Guild                        ok              4        1      0
 Twist Bioscience             ok             47       39      3
-Vox Media                    ok             21       21      1
-Faire                        ok             66       57      1
-Sweetgreen                   ok             74       74      2
-DoorDash                     ok            438      437     30
+Vox Media                    ok             19       19      1
+Faire                        ok             65       57      1
+Sweetgreen                   ok             72       72      2
+DoorDash                     ok            437      436     30
 ACLU                         ok             18       18      4
-Palantir                     ok            309      244      5
-Zoox                         ok            229      228      1
-Notion                       ok            151       77      5
-Ramp                         ok            171      152      8
-OpenAI                       ok            814      639      2
-Hims & Hers                  ok            150      133      8
+Palantir                     ok            305      237      5
+Zoox                         ok            237      235      1
+Notion                       ok            154       78      7
+Ramp                         ok            171      154     11
+OpenAI                       ok            819      644      2
+Hims & Hers                  ok            149      132      8
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
-Listings on site: 188  (new today: 1, removed as closed/expired: 3, carried over from failed sources: 0)
+Listings on site: 191  (new today: 12, removed as closed/expired: 9, carried over from failed sources: 0)
 
 CHECK THESE SOURCES:
   - MasterClass: returned 0 postings (board slug may have changed)
