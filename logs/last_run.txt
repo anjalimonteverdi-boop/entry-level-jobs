@@ -1,17 +1,17 @@
-Run 2026-11-07 10:24 PST
+Run 2026-11-08 10:35 PST
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
 Airbnb                       ok            205       38      0
 Pinterest                    ok            168      126      3
-Lyft                         ok            167       93     15
+Lyft                         ok            166       92     15
 Dropbox                      ok             33       22      1
 Stripe                       ok            766      328      8
 Instacart                    ok             90       88      2
 Figma                        ok            145      102      6
 Gusto                        ok             83       83      2
 Reddit                       ok            163      143      0
-Samsara                      ok            315      247     11
-Databricks                   ok            924      483      2
+Samsara                      ok            314      247     11
+Databricks                   ok            922      481      2
 Asana                        ok            108       47      2
 Twitch                       ok             55       54      3
 Glossier                     ok             24       22      0
@@ -40,12 +40,12 @@ ACLU                         ok             18       18      4
 Palantir                     ok            305      237      5
 Zoox                         ok            241      239      1
 Notion                       ok            154       78      7
-Ramp                         ok            171      154     11
-OpenAI                       ok            819      644      2
+Ramp                         ok            169      152     11
+OpenAI                       ok            816      641      2
 Hims & Hers                  ok            149      132      8
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
-Listings on site: 189  (new today: 3, removed as closed/expired: 5, carried over from failed sources: 0)
+Listings on site: 189  (new today: 0, removed as closed/expired: 0, carried over from failed sources: 0)
 
 CHECK THESE SOURCES:
   - MasterClass: returned 0 postings (board slug may have changed)
