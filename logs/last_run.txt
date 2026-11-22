@@ -1,31 +1,31 @@
-Run 2026-11-21 12:18 PST
+Run 2026-11-22 12:31 PST
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
-Airbnb                       ok            202       44      0
+Airbnb                       ok            203       45      0
 Pinterest                    ok            174      126      3
-Lyft                         ok            148       76      8
+Lyft                         ok            145       73      8
 Dropbox                      ok             47       32      1
-Stripe                       ok            778      315      8
+Stripe                       ok            777      314      8
 Instacart                    ok             92       90      0
-Figma                        ok            147      103      2
+Figma                        ok            147      103      1
 Gusto                        ok             82       82      3
 Reddit                       ok            148      130      0
-Samsara                      ok            298      227     12
-Databricks                   ok            895      476      2
+Samsara                      ok            300      227     12
+Databricks                   ok            893      475      2
 Asana                        ok            111       44      2
 Twitch                       ok             50       49      4
 Glossier                     ok             18       16      0
 Calm                         ok              1        1      0
 Khan Academy                 ok              3        3      0
-Wikimedia Foundation         ok             12       12      1
+Wikimedia Foundation         ok             11       11      0
 Mozilla                      ok            138       31      0
 Code for America             ok             10       10      0
-Robinhood                    ok            163      147      9
+Robinhood                    ok            163      147      8
 Chime                        ok             80       80      5
 Brex                         ok            249      240     11
 Affirm                       ok            222      160      2
 SoFi                         ok             53       45      0
-One Medical                  ok            352      350     56
+One Medical                  ok            349      347     51
 Coursera                     ok             34        0      0
 Duolingo                     ok             54       44      2
 MasterClass                  ok              0        0      0
@@ -45,7 +45,7 @@ OpenAI                       ok            852      662      2
 Hims & Hers                  ok            147      129     11
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
-Listings on site: 183  (new today: 2, removed as closed/expired: 2, carried over from failed sources: 0)
+Listings on site: 176  (new today: 1, removed as closed/expired: 8, carried over from failed sources: 0)
 
 CHECK THESE SOURCES:
   - MasterClass: returned 0 postings (board slug may have changed)
