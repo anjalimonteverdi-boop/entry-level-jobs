@@ -1,41 +1,41 @@
-Run 2026-11-25 14:52 PST
+Run 2026-11-26 14:41 PST
 
 SOURCE                       STATUS    FETCHED  IN AREA  ENTRY
-Airbnb                       ok            198       45      0
-Pinterest                    ok            166      126      3
+Airbnb                       ok            202       46      0
+Pinterest                    ok            167      126      3
 Lyft                         ok            144       73      7
 Dropbox                      ok             51       36      1
-Stripe                       ok            772      314     10
+Stripe                       ok            768      314     10
 Instacart                    ok             97       95      0
-Figma                        ok            142      101      1
+Figma                        ok            141      101      1
 Gusto                        ok             86       86      2
-Reddit                       ok            148      131      0
-Samsara                      ok            298      224     12
-Databricks                   ok            874      477      3
-Asana                        ok            110       42      2
-Twitch                       ok             51       50      3
+Reddit                       ok            149      132      0
+Samsara                      ok            298      223     12
+Databricks                   ok            882      477      3
+Asana                        ok            107       41      2
+Twitch                       ok             54       53      3
 Glossier                     ok             17       16      0
 Calm                         ok              1        1      0
 Khan Academy                 ok              5        5      0
 Wikimedia Foundation         ok             13       13      1
-Mozilla                      ok            147       35      0
+Mozilla                      ok            153       41      0
 Code for America             ok             11       11      0
-Robinhood                    ok            161      145      6
+Robinhood                    ok            162      146      6
 Chime                        ok             77       77      4
-Brex                         ok            270      259     14
-Affirm                       ok            213      158      4
-SoFi                         ok             57       44      0
+Brex                         ok            266      255     14
+Affirm                       ok            216      158      4
+SoFi                         ok             58       45      0
 One Medical                  ok            346      344     46
-Coursera                     ok             33        0      0
+Coursera                     ok             36        0      0
 Duolingo                     ok             54       44      2
 MasterClass                  ok              0        0      0
 Outschool                    error           0        0      0   HTTPError: HTTP Error 404: Not Found
 Guild                        ok              5        2      0
 Twist Bioscience             ok             68       63     16
 Vox Media                    ok             23       23      2
-Faire                        ok             71       66      3
+Faire                        ok             73       66      3
 Sweetgreen                   ok             70       70      2
-DoorDash                     ok            402      402     19
+DoorDash                     ok            402      401     19
 ACLU                         ok             19       19      1
 Palantir                     ok            305      239      4
 Zoox                         ok            246      244      0
@@ -45,7 +45,7 @@ OpenAI                       ok            876      671      2
 Hims & Hers                  ok            140      125     12
 USAJobs (federal)            skipped         0        0      0   USAJOBS_API_KEY / USAJOBS_EMAIL not set
 
-Listings on site: 180  (new today: 8, removed as closed/expired: 8, carried over from failed sources: 0)
+Listings on site: 180  (new today: 0, removed as closed/expired: 0, carried over from failed sources: 0)
 
 CHECK THESE SOURCES:
   - MasterClass: returned 0 postings (board slug may have changed)
